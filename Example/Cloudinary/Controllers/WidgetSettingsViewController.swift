@@ -55,7 +55,7 @@ class WidgetSettingsViewController: UIViewController {
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
-        let uploadType    = UploadType(signed: false, preset: "ios_sample")
+        let uploadType    = CLDUploadType(signed: false, preset: "ios_sample")
         let configuration = CLDWidgetConfiguration(allowRotate: allowRotate, initialAspectLockState: initialAspect, uploadType: uploadType)
         
         uploaderWidget = CLDUploaderWidget(cloudinary: appDelegate.cloudinary!, configuration: configuration, images: initialImages.images, videos: initialVideos.videos, delegate: self)
