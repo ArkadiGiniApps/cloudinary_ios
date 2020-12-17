@@ -96,6 +96,9 @@
 		D73117582473D7A30051AAFC /* CLDExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D73117572473D7A30051AAFC /* CLDExpressionTests.m */; };
 		D731175A247415340051AAFC /* CLDConditionExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D7311759247415340051AAFC /* CLDConditionExpressionTests.m */; };
 		D731175C24741FBE0051AAFC /* CLDTransformationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D731175B24741FBE0051AAFC /* CLDTransformationTests.m */; };
+		D73DBB0A258BA0550002E7E5 /* dog2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = D7289C7E258A9CB5004DBD29 /* dog2.mp4 */; };
+		D73DBB0B258BA0570002E7E5 /* dog.mov in Resources */ = {isa = PBXBuildFile; fileRef = 274C6D2B23FBAF5E0090BC40 /* dog.mov */; };
+		D73DBB0C258BA05A0002E7E5 /* dog.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 274C6D2C23FBAF5E0090BC40 /* dog.mp4 */; };
 		D7567064255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7567063255D661F005B65D3 /* UploaderWidgetViewControllerTests.swift */; };
 		D7788A3824DC482C00B63EB7 /* borderCollieCropped.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7788A3724DC482C00B63EB7 /* borderCollieCropped.jpg */; };
 		D7788A9424E29BEC00B63EB7 /* borderCollieRotatedJpg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7788A9224E29BEC00B63EB7 /* borderCollieRotatedJpg.jpg */; };
@@ -948,7 +951,10 @@
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				270C1C1C23FC1A4D00A503C3 /* LaunchScreen.storyboard in Resources */,
+				D73DBB0C258BA05A0002E7E5 /* dog.mp4 in Resources */,
 				270C1BF723FBBA3C00A503C3 /* LICENSE in Resources */,
+				D73DBB0B258BA0570002E7E5 /* dog.mov in Resources */,
+				D73DBB0A258BA0550002E7E5 /* dog2.mp4 in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
