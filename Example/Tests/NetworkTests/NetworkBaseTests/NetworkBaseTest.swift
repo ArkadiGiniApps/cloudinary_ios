@@ -25,6 +25,7 @@
 import Foundation
 import XCTest
 import Cloudinary
+import AVKit
 
 class NetworkBaseTest: XCTestCase {
     let timeout: TimeInterval = 30.0
@@ -84,6 +85,7 @@ class NetworkBaseTest: XCTestCase {
         case borderCollieRotatedJpg
         case docx
         case dog
+        case dog2
         case pdf
         case textImage
 
@@ -105,7 +107,11 @@ class NetworkBaseTest: XCTestCase {
                 return "jpg"
                 
             case .docx: return "docx"
-            case .dog : return "mp4"
+                
+            case .dog : fallthrough
+            case .dog2:
+                return "mp4"
+            
             case .pdf : return "pdf"
             }
         }
@@ -118,7 +124,7 @@ class NetworkBaseTest: XCTestCase {
         var data: Data {
             let data = try! Data(contentsOf: url, options: .uncached)
             return data
-        }        
+        }
     }
     
     // MARK: - Helpers
@@ -136,6 +142,10 @@ class NetworkBaseTest: XCTestCase {
         else {
             return UIImage()
         }
+    }
+    
+    func getVideo(_ resource: TestResourceType) -> AVPlayerItem {
+        return AVPlayerItem(url: resource.url)
     }
 }
 
