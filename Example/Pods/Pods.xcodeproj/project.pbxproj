@@ -157,7 +157,6 @@
 		EA1C2212B8A88E3423987FB0E90F7F55 /* CLDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5F8CBBCBEDE8A6DF88C29686AEFCE4 /* CLDError.swift */; };
 		EA364916DFC57B2A4E51150D21AB2DE4 /* CLDSubtitlesLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC81366528112AC4823C07F1EAE622CF /* CLDSubtitlesLayer.swift */; };
 		ECCC05FB9DD87692CE6AC395DA373B9C /* CLDOcrWordResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE68DB7EA879D01BD5F013B27CEEA86 /* CLDOcrWordResult.swift */; };
-		EDC9D618A09123FDF53E3A5E00BE35AC /* CLDWidgetImageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1D951D031EC30186C75D0A71472218 /* CLDWidgetImageContainer.swift */; };
 		EDE3BD53AB7D3212D0EBD56A78B59EF4 /* CLDCropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67585865F0A3869F6D9110009B56D8A7 /* CLDCropOverlayView.swift */; };
 		EEDE9AD318EA90551367AEFF82AB283A /* CLDTagsRequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB604319FBA7BEBB2F492A9BB8B95A1 /* CLDTagsRequestParams.swift */; };
 		F09092E165B5E1C6DF5ECFF163772454 /* CLDOcrSymbolResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC354449AD0056314B10913172D7080 /* CLDOcrSymbolResult.swift */; };
@@ -370,7 +369,6 @@
 		FB60F12746F4604DDD95C061ED2F0319 /* CLDTextResult.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDTextResult.swift; sourceTree = "<group>"; };
 		FC0DA14A85BF62E0EF619B4BEC7FE3C6 /* Pods-Cloudinary_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Cloudinary_Example.release.xcconfig"; sourceTree = "<group>"; };
 		FD9DE78E6C0BB0A6F2AF4556D416550A /* CLDNetworkDownloadRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDNetworkDownloadRequest.swift; sourceTree = "<group>"; };
-		FF1D951D031EC30186C75D0A71472218 /* CLDWidgetImageContainer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDWidgetImageContainer.swift; sourceTree = "<group>"; };
 		FFC354449AD0056314B10913172D7080 /* CLDOcrSymbolResult.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDOcrSymbolResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -908,7 +906,6 @@
 			isa = PBXGroup;
 			children = (
 				D7289C7C258A9C1E004DBD29 /* CLDWidgetAssetContainer.swift */,
-				FF1D951D031EC30186C75D0A71472218 /* CLDWidgetImageContainer.swift */,
 				675B6D1DEB174CBE17E8356935819DA1 /* CLDWidgetPreviewCollectionCell.swift */,
 			);
 			path = WidgetElements;
@@ -1302,7 +1299,6 @@
 				F5241A6E097892D2877ACB53506F9B1B /* CLDWidgetConfiguration.swift in Sources */,
 				D7289C7D258A9C1E004DBD29 /* CLDWidgetAssetContainer.swift in Sources */,
 				756EE74AF4451D5CB6A66468AEFAF441 /* CLDWidgetEditViewController.swift in Sources */,
-				EDC9D618A09123FDF53E3A5E00BE35AC /* CLDWidgetImageContainer.swift in Sources */,
 				C7CE0D82E2660FF9264E1DA3ACA5DD50 /* CLDWidgetPreviewCollectionCell.swift in Sources */,
 				8FBF15DFF70E620BD7D90A6480000A08 /* CLDWidgetPreviewViewController.swift in Sources */,
 				2DDEF61D3D8BF43FC9D6917A6AD939F5 /* CLDWidgetViewController.swift in Sources */,
