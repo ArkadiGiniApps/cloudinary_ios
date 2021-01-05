@@ -190,7 +190,7 @@ final public class StorehouseOnDisk<StoredItem>: StorehouseAnyFileSystem<StoredI
     ///
     internal func makeFileName(for key: String) -> String
     {
-        let fileName      = MD5(key)
+        let fileName      = key.cld_md5()
         let fileExtension = URL(fileURLWithPath: key).pathExtension
         
         switch fileExtension.isEmpty

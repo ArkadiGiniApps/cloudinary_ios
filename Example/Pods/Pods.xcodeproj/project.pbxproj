@@ -136,7 +136,6 @@
 		D7AF1E8C25A4B88B00C75666 /* ExtensionOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1E7525A4B88B00C75666 /* ExtensionOptional.swift */; };
 		D7AF1E8D25A4B88B00C75666 /* ExtensionDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1E7625A4B88B00C75666 /* ExtensionDate.swift */; };
 		D7AF1E8E25A4B88B00C75666 /* StorehouseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1E7825A4B88B00C75666 /* StorehouseError.swift */; };
-		D7AF1E8F25A4B88B00C75666 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1E7A25A4B88B00C75666 /* MD5.swift */; };
 		D7AF1E9825A4BC6100C75666 /* CLDURLCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1E9625A4BC6100C75666 /* CLDURLCache.swift */; };
 		D7AF1E9925A4BC6100C75666 /* CLDURLCacheConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1E9725A4BC6100C75666 /* CLDURLCacheConfiguration.swift */; };
 		D7AF1E9E25A4BC8D00C75666 /* HTTPStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1E9D25A4BC8D00C75666 /* HTTPStatusCode.swift */; };
@@ -338,7 +337,6 @@
 		D7AF1E7525A4B88B00C75666 /* ExtensionOptional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionOptional.swift; sourceTree = "<group>"; };
 		D7AF1E7625A4B88B00C75666 /* ExtensionDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionDate.swift; sourceTree = "<group>"; };
 		D7AF1E7825A4B88B00C75666 /* StorehouseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorehouseError.swift; sourceTree = "<group>"; };
-		D7AF1E7A25A4B88B00C75666 /* MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
 		D7AF1E9625A4BC6100C75666 /* CLDURLCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDURLCache.swift; sourceTree = "<group>"; };
 		D7AF1E9725A4BC6100C75666 /* CLDURLCacheConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDURLCacheConfiguration.swift; sourceTree = "<group>"; };
 		D7AF1E9D25A4BC8D00C75666 /* HTTPStatusCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPStatusCode.swift; sourceTree = "<group>"; };
@@ -887,7 +885,6 @@
 				D7AF1E5C25A4B88B00C75666 /* Core */,
 				D7AF1E7425A4B88B00C75666 /* Extension */,
 				D7AF1E7725A4B88B00C75666 /* Enum */,
-				D7AF1E7925A4B88B00C75666 /* Hashing */,
 			);
 			path = "Storehouse Library";
 			sourceTree = "<group>";
@@ -979,14 +976,6 @@
 				D7AF1E7825A4B88B00C75666 /* StorehouseError.swift */,
 			);
 			path = Enum;
-			sourceTree = "<group>";
-		};
-		D7AF1E7925A4B88B00C75666 /* Hashing */ = {
-			isa = PBXGroup;
-			children = (
-				D7AF1E7A25A4B88B00C75666 /* MD5.swift */,
-			);
-			path = Hashing;
 			sourceTree = "<group>";
 		};
 		D7AF1E9325A4BC2100C75666 /* Class */ = {
@@ -1266,7 +1255,6 @@
 				1817D06B5BF8B48EB435FF85062A73BC /* CLDError.swift in Sources */,
 				84D50E515E88148EB527386D5C598F8D /* CLDErrorRequest.swift in Sources */,
 				56F2B7ECBBBFA1E388D833F19AFC3AAA /* CLDExplicitRequest.swift in Sources */,
-				D7AF1E8F25A4B88B00C75666 /* MD5.swift in Sources */,
 				D92BF9158E497031AE8BAA69C90A960C /* CLDExplicitRequestParams.swift in Sources */,
 				D7AF1E8225A4B88B00C75666 /* StorehouseOnDisk.swift in Sources */,
 				984E0D8BF4CBDC0E1835F2F3D012EBF8 /* CLDExplicitResult.swift in Sources */,
