@@ -137,6 +137,14 @@
 		D7AF1E8D25A4B88B00C75666 /* ExtensionDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1E7625A4B88B00C75666 /* ExtensionDate.swift */; };
 		D7AF1E8E25A4B88B00C75666 /* StorehouseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1E7825A4B88B00C75666 /* StorehouseError.swift */; };
 		D7AF1E8F25A4B88B00C75666 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1E7A25A4B88B00C75666 /* MD5.swift */; };
+		D7AF1E9825A4BC6100C75666 /* CLDURLCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1E9625A4BC6100C75666 /* CLDURLCache.swift */; };
+		D7AF1E9925A4BC6100C75666 /* CLDURLCacheConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1E9725A4BC6100C75666 /* CLDURLCacheConfiguration.swift */; };
+		D7AF1E9E25A4BC8D00C75666 /* HTTPStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1E9D25A4BC8D00C75666 /* HTTPStatusCode.swift */; };
+		D7AF1EA725A4BCB000C75666 /* ExtensionURLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1EA225A4BCB000C75666 /* ExtensionURLRequest.swift */; };
+		D7AF1EA825A4BCB000C75666 /* ExtensionDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1EA325A4BCB000C75666 /* ExtensionDateFormatter.swift */; };
+		D7AF1EA925A4BCB000C75666 /* ExtensionHTTPURLResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1EA425A4BCB000C75666 /* ExtensionHTTPURLResponse.swift */; };
+		D7AF1EAA25A4BCB000C75666 /* ExtensionURLRequestCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1EA525A4BCB000C75666 /* ExtensionURLRequestCachePolicy.swift */; };
+		D7AF1EAB25A4BCB000C75666 /* ExtensionURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1EA625A4BCB000C75666 /* ExtensionURL.swift */; };
 		D92BF9158E497031AE8BAA69C90A960C /* CLDExplicitRequestParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461968E3D75B1A53C233B86F3309C713 /* CLDExplicitRequestParams.swift */; };
 		DAAB859D28B120F852E84468B9563D02 /* CLDJsonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C678A9D02EEC9028A9C6AF246232CF /* CLDJsonUtils.swift */; };
 		DBA529B6DED02EAB55F6EFC599273AD5 /* CLDNResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BB1A309C581384B59DDD2338DCD050 /* CLDNResponse.swift */; };
@@ -331,6 +339,14 @@
 		D7AF1E7625A4B88B00C75666 /* ExtensionDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionDate.swift; sourceTree = "<group>"; };
 		D7AF1E7825A4B88B00C75666 /* StorehouseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorehouseError.swift; sourceTree = "<group>"; };
 		D7AF1E7A25A4B88B00C75666 /* MD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
+		D7AF1E9625A4BC6100C75666 /* CLDURLCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDURLCache.swift; sourceTree = "<group>"; };
+		D7AF1E9725A4BC6100C75666 /* CLDURLCacheConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDURLCacheConfiguration.swift; sourceTree = "<group>"; };
+		D7AF1E9D25A4BC8D00C75666 /* HTTPStatusCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPStatusCode.swift; sourceTree = "<group>"; };
+		D7AF1EA225A4BCB000C75666 /* ExtensionURLRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionURLRequest.swift; sourceTree = "<group>"; };
+		D7AF1EA325A4BCB000C75666 /* ExtensionDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionDateFormatter.swift; sourceTree = "<group>"; };
+		D7AF1EA425A4BCB000C75666 /* ExtensionHTTPURLResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionHTTPURLResponse.swift; sourceTree = "<group>"; };
+		D7AF1EA525A4BCB000C75666 /* ExtensionURLRequestCachePolicy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionURLRequestCachePolicy.swift; sourceTree = "<group>"; };
+		D7AF1EA625A4BCB000C75666 /* ExtensionURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionURL.swift; sourceTree = "<group>"; };
 		D89FBD81F56EB7A9B2F747BB9D35769A /* CLDPreprocessChain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDPreprocessChain.swift; sourceTree = "<group>"; };
 		DB62FA740C21E35F0B23D4356A004BE6 /* CLDOcrResult.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDOcrResult.swift; sourceTree = "<group>"; };
 		DBC516AA312E7CB0FFEEB0617CB6B017 /* Pods-Cloudinary_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Cloudinary_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -857,6 +873,9 @@
 		D7AF1E0C25A4B38500C75666 /* CacheSystem */ = {
 			isa = PBXGroup;
 			children = (
+				D7AF1E9325A4BC2100C75666 /* Class */,
+				D7AF1E9425A4BC2E00C75666 /* Enum */,
+				D7AF1E9525A4BC3E00C75666 /* Extensions */,
 				D7AF1E5B25A4B88B00C75666 /* Storehouse Library */,
 			);
 			path = CacheSystem;
@@ -968,6 +987,35 @@
 				D7AF1E7A25A4B88B00C75666 /* MD5.swift */,
 			);
 			path = Hashing;
+			sourceTree = "<group>";
+		};
+		D7AF1E9325A4BC2100C75666 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				D7AF1E9625A4BC6100C75666 /* CLDURLCache.swift */,
+				D7AF1E9725A4BC6100C75666 /* CLDURLCacheConfiguration.swift */,
+			);
+			path = Class;
+			sourceTree = "<group>";
+		};
+		D7AF1E9425A4BC2E00C75666 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				D7AF1E9D25A4BC8D00C75666 /* HTTPStatusCode.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		D7AF1E9525A4BC3E00C75666 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D7AF1EA325A4BCB000C75666 /* ExtensionDateFormatter.swift */,
+				D7AF1EA425A4BCB000C75666 /* ExtensionHTTPURLResponse.swift */,
+				D7AF1EA625A4BCB000C75666 /* ExtensionURL.swift */,
+				D7AF1EA225A4BCB000C75666 /* ExtensionURLRequest.swift */,
+				D7AF1EA525A4BCB000C75666 /* ExtensionURLRequestCachePolicy.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		E5890CC685BFD360CA0EE9FCE1A4ECA5 /* NetworkRequest */ = {
@@ -1181,6 +1229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7AF1EA925A4BCB000C75666 /* ExtensionHTTPURLResponse.swift in Sources */,
 				8C8314AA90EFBF7E8379FF78D0A7B3BF /* CLDAccessibilityAnalysisResult.swift in Sources */,
 				6813186328715CA0893FD9B5A73025C3 /* CLDAdvOcrResult.swift in Sources */,
 				302DC9EE0137BDC4A783BED079C08875 /* CLDAsyncNetworkUploadRequest.swift in Sources */,
@@ -1198,6 +1247,8 @@
 				D7AF1E8E25A4B88B00C75666 /* StorehouseError.swift in Sources */,
 				D7AF1E7D25A4B88B00C75666 /* StorehouseConfigurationDisk.swift in Sources */,
 				EF9BC93F91BE311B9026D9D447D2AF66 /* CLDCryptoUtils.swift in Sources */,
+				D7AF1EA725A4BCB000C75666 /* ExtensionURLRequest.swift in Sources */,
+				D7AF1EAB25A4BCB000C75666 /* ExtensionURL.swift in Sources */,
 				D7AF1E8525A4B88B00C75666 /* StorehouseEntry.swift in Sources */,
 				D7AF1E8625A4B88B00C75666 /* StorehouseTransformer.swift in Sources */,
 				0D084CB1280929BE1E68F6E92B747CDD /* CLDDefaultNetworkAdapter.swift in Sources */,
@@ -1248,6 +1299,7 @@
 				47EAB385E1E1218904A994478CE0AAD9 /* CLDNetworkCoordinator.swift in Sources */,
 				75BA5FD596D6CE29D7672DD2BA21E959 /* CLDNetworkDataRequestImpl.swift in Sources */,
 				F951BC606915ED58D18871734DE03AAF /* CLDNetworkDownloadRequest.swift in Sources */,
+				D7AF1E9825A4BC6100C75666 /* CLDURLCache.swift in Sources */,
 				EE21FFBB34B40F920F20505151F668A8 /* CLDNetworkUploadRequest.swift in Sources */,
 				5826C9917534D793479FBEE252A6412D /* CLDNMultipartFormData.swift in Sources */,
 				D7AF1E7E25A4B88B00C75666 /* StorehouseAnyInMemory.swift in Sources */,
@@ -1257,6 +1309,7 @@
 				A7015AB420DA889589351414D9BD145D /* CLDNResponseSerialization.swift in Sources */,
 				D45322117DBC4BA167160EA9929B0768 /* CLDNResult.swift in Sources */,
 				5D4B9AA717E76D23D8D375A19D39515F /* CLDNSessionDelegate.swift in Sources */,
+				D7AF1EAA25A4BCB000C75666 /* ExtensionURLRequestCachePolicy.swift in Sources */,
 				F026AFDCEEB0B36B1FD491A807018432 /* CLDNSessionManager.swift in Sources */,
 				BF791D9802A8080DB48FD9445E95785A /* CLDNTaskDelegate.swift in Sources */,
 				F89EB0C702130A2F8026150AD06BB878 /* CLDNTimeline.swift in Sources */,
@@ -1290,6 +1343,7 @@
 				2AE8E63AA32D6F70B06946ADFD6E530C /* CLDRequest.swift in Sources */,
 				368DD3D1BD72BC52406822156897707F /* CLDRequestParams.swift in Sources */,
 				61D5636881BE8CAD496C9945B4B6FB7B /* CLDRequestParamsHelpers.swift in Sources */,
+				D7AF1EA825A4BCB000C75666 /* ExtensionDateFormatter.swift in Sources */,
 				032237B6448A381414FDACCA8E8712D1 /* CLDResponsiveParams.swift in Sources */,
 				7F0EFD9E5A346DAA29EEDE108CE237B9 /* CLDResponsiveViewHelper.swift in Sources */,
 				71E6748299067E6513420A7DA29CED9B /* CLDSpriteRequest.swift in Sources */,
@@ -1303,6 +1357,7 @@
 				A9461309119D2F4502B1BC8342AB4CF5 /* CLDTagResult.swift in Sources */,
 				4A517738E80C3B33C316FD61411DF9C0 /* CLDTagsRequestParams.swift in Sources */,
 				0DF22A7EE835FB2A497CD7B335954F33 /* CLDTextLayer.swift in Sources */,
+				D7AF1E9925A4BC6100C75666 /* CLDURLCacheConfiguration.swift in Sources */,
 				1DCBF0987418091DF807D0DF2ADC765A /* CLDTextRequest.swift in Sources */,
 				D7AF1E7F25A4B88B00C75666 /* StorehouseAny.swift in Sources */,
 				2FACCC05495366AF4BB32282CF344C78 /* CLDTextRequestParams.swift in Sources */,
@@ -1319,6 +1374,7 @@
 				D78912E6E51C3C0F44CF988D5377DFDB /* CLDVariable.swift in Sources */,
 				EC45E6D36C52A307E6048BF282B0FEF9 /* Cloudinary-dummy.m in Sources */,
 				956344687854471B9A8A0471F4E6D2BF /* CommonResultKeys.swift in Sources */,
+				D7AF1E9E25A4BC8D00C75666 /* HTTPStatusCode.swift in Sources */,
 				BBFE1E463C713D25D212EA29BCFA2668 /* DispatchQueue+Cloudinary.swift in Sources */,
 				B8E87F17E6318FEE8FFA008D993B4D9B /* UIButton+Cloudinary.swift in Sources */,
 				A79BA1D5418A8F4F5D37AECBEEA06FA5 /* UIImageView+Cloudinary.swift in Sources */,
