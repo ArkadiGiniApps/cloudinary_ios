@@ -107,6 +107,13 @@
 		D79AE387244DF1E7004F2439 /* CLDVariableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79AE386244DF1E7004F2439 /* CLDVariableTests.swift */; };
 		D79AE39C24585533004F2439 /* CLDVariableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D79AE39B24585533004F2439 /* CLDVariableTests.m */; };
 		D7C2889025372FCA002846FE /* UploaderQualityAnalysisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2888F25372FCA002846FE /* UploaderQualityAnalysisTests.swift */; };
+		D7E68E0325A6154000C8F134 /* StorehouseConfigurationInMemoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E68E0225A6154000C8F134 /* StorehouseConfigurationInMemoryTests.swift */; };
+		D7E68E1725A658E900C8F134 /* StorehouseConfigurationAutoPurgingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E68E1625A658E900C8F134 /* StorehouseConfigurationAutoPurgingTests.swift */; };
+		D7E68E1B25A65A6B00C8F134 /* StorehouseConfigurationDiskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E68E1A25A65A6A00C8F134 /* StorehouseConfigurationDiskTests.swift */; };
+		D7E68E2725A65E4400C8F134 /* StorehouseInMemoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E68E2625A65E4400C8F134 /* StorehouseInMemoryTests.swift */; };
+		D7E68E2F25A7515C00C8F134 /* StorehouseOnDiskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E68E2E25A7515B00C8F134 /* StorehouseOnDiskTests.swift */; };
+		D7E68E3325A76F3400C8F134 /* StorehouseAutoPurgingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E68E3225A76F3400C8F134 /* StorehouseAutoPurgingTests.swift */; };
+		D7E68E3825A779C300C8F134 /* StorehouseExpiryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E68E3725A779C300C8F134 /* StorehouseExpiryTests.swift */; };
 		D7E79DC924B515260082288A /* UploaderOcrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DC324B515260082288A /* UploaderOcrTests.swift */; };
 		D7E79DCA24B515260082288A /* OcrMockProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DC424B515260082288A /* OcrMockProvider.swift */; };
 		D7E79DCB24B515260082288A /* ExplicitMockOcrTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D7E79DC524B515260082288A /* ExplicitMockOcrTests.m */; };
@@ -241,6 +248,13 @@
 		D79AE386244DF1E7004F2439 /* CLDVariableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDVariableTests.swift; sourceTree = "<group>"; };
 		D79AE39B24585533004F2439 /* CLDVariableTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDVariableTests.m; sourceTree = "<group>"; };
 		D7C2888F25372FCA002846FE /* UploaderQualityAnalysisTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploaderQualityAnalysisTests.swift; sourceTree = "<group>"; };
+		D7E68E0225A6154000C8F134 /* StorehouseConfigurationInMemoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseConfigurationInMemoryTests.swift; sourceTree = "<group>"; };
+		D7E68E1625A658E900C8F134 /* StorehouseConfigurationAutoPurgingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseConfigurationAutoPurgingTests.swift; sourceTree = "<group>"; };
+		D7E68E1A25A65A6A00C8F134 /* StorehouseConfigurationDiskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseConfigurationDiskTests.swift; sourceTree = "<group>"; };
+		D7E68E2625A65E4400C8F134 /* StorehouseInMemoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseInMemoryTests.swift; sourceTree = "<group>"; };
+		D7E68E2E25A7515B00C8F134 /* StorehouseOnDiskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseOnDiskTests.swift; sourceTree = "<group>"; };
+		D7E68E3225A76F3400C8F134 /* StorehouseAutoPurgingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseAutoPurgingTests.swift; sourceTree = "<group>"; };
+		D7E68E3725A779C300C8F134 /* StorehouseExpiryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorehouseExpiryTests.swift; sourceTree = "<group>"; };
 		D7E79DC324B515260082288A /* UploaderOcrTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploaderOcrTests.swift; sourceTree = "<group>"; };
 		D7E79DC424B515260082288A /* OcrMockProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OcrMockProvider.swift; sourceTree = "<group>"; };
 		D7E79DC524B515260082288A /* ExplicitMockOcrTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExplicitMockOcrTests.m; sourceTree = "<group>"; };
@@ -427,6 +441,7 @@
 		272C51B8242C80E70093AB1B /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				D7E68E0125A6138000C8F134 /* CLDURLCacheTests */,
 				272C517A242B6C360093AB1B /* CacheTests.swift */,
 				272C5145242B6C350093AB1B /* MultipartFormDataTests.swift */,
 				272C5144242B6C350093AB1B /* ResponseSerializationTests.swift */,
@@ -707,6 +722,52 @@
 			path = QualityAnalysisUploaderTests;
 			sourceTree = "<group>";
 		};
+		D7E68E0125A6138000C8F134 /* CLDURLCacheTests */ = {
+			isa = PBXGroup;
+			children = (
+				D7E68E0A25A6169100C8F134 /* StorehouseLibraryTests */,
+			);
+			path = CLDURLCacheTests;
+			sourceTree = "<group>";
+		};
+		D7E68E0A25A6169100C8F134 /* StorehouseLibraryTests */ = {
+			isa = PBXGroup;
+			children = (
+				D7E68E1E25A65DF700C8F134 /* StorehouseConfigurationTests */,
+				D7E68E2525A65E1300C8F134 /* StorehouseAnyTypeTests */,
+				D7E68E3625A779AC00C8F134 /* StorehouseContentTests */,
+			);
+			path = StorehouseLibraryTests;
+			sourceTree = "<group>";
+		};
+		D7E68E1E25A65DF700C8F134 /* StorehouseConfigurationTests */ = {
+			isa = PBXGroup;
+			children = (
+				D7E68E0225A6154000C8F134 /* StorehouseConfigurationInMemoryTests.swift */,
+				D7E68E1625A658E900C8F134 /* StorehouseConfigurationAutoPurgingTests.swift */,
+				D7E68E1A25A65A6A00C8F134 /* StorehouseConfigurationDiskTests.swift */,
+			);
+			path = StorehouseConfigurationTests;
+			sourceTree = "<group>";
+		};
+		D7E68E2525A65E1300C8F134 /* StorehouseAnyTypeTests */ = {
+			isa = PBXGroup;
+			children = (
+				D7E68E2625A65E4400C8F134 /* StorehouseInMemoryTests.swift */,
+				D7E68E2E25A7515B00C8F134 /* StorehouseOnDiskTests.swift */,
+				D7E68E3225A76F3400C8F134 /* StorehouseAutoPurgingTests.swift */,
+			);
+			path = StorehouseAnyTypeTests;
+			sourceTree = "<group>";
+		};
+		D7E68E3625A779AC00C8F134 /* StorehouseContentTests */ = {
+			isa = PBXGroup;
+			children = (
+				D7E68E3725A779C300C8F134 /* StorehouseExpiryTests.swift */,
+			);
+			path = StorehouseContentTests;
+			sourceTree = "<group>";
+		};
 		D7E79DC224B515260082288A /* OcrUploaderTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -961,16 +1022,20 @@
 				D7E79DCE24B515260082288A /* ExplicitMockOcrTests.swift in Sources */,
 				272C5186242B6C360093AB1B /* MultipartFormDataTests.swift in Sources */,
 				272C5180242B6C360093AB1B /* FileManager+CloudinaryTests.swift in Sources */,
+				D7E68E2F25A7515C00C8F134 /* StorehouseOnDiskTests.swift in Sources */,
 				D779B69924B7117300E496EB /* NetworkBaseTestObjc.m in Sources */,
+				D7E68E2725A65E4400C8F134 /* StorehouseInMemoryTests.swift in Sources */,
 				D71ADD9C247D976500235AD4 /* CryptoUtilsTests.m in Sources */,
 				272C5187242B6C360093AB1B /* URLProtocolTests.swift in Sources */,
 				272C517F242B6C360093AB1B /* SessionManagerTests.swift in Sources */,
 				274C6D3823FBAF5E0090BC40 /* DownloaderTests.swift in Sources */,
 				D724FFEC25384AEF002B31F3 /* ObjcQualityAnalysisUploadResultParserTests.m in Sources */,
+				D7E68E1B25A65A6B00C8F134 /* StorehouseConfigurationDiskTests.swift in Sources */,
 				5D7C2DCF245E93F7007E95F7 /* CLDExpressionTests.swift in Sources */,
 				272C51B0242B6C360093AB1B /* UploadTests.swift in Sources */,
 				274C6D3723FBAF5E0090BC40 /* ManagementApiTests.swift in Sources */,
 				D724FFE625383DC5002B31F3 /* MockProviderQualityAnalysis.swift in Sources */,
+				D7E68E1725A658E900C8F134 /* StorehouseConfigurationAutoPurgingTests.swift in Sources */,
 				D7119CE3246C7C8100F6B3ED /* CLDConditionExpressionHelpersTests.swift in Sources */,
 				D724FFEA25384A71002B31F3 /* QualityAnalysisExplicitResultParserTests.swift in Sources */,
 				274C6D3123FBAF5E0090BC40 /* UrlTests.swift in Sources */,
@@ -979,6 +1044,7 @@
 				D7E79DD124B515650082288A /* UploadRequestParamsTests.swift in Sources */,
 				D71B78FE24680743004AA28E /* CLDTransformationVariablesTests.swift in Sources */,
 				5D53A9512488CE23005C14AB /* CLDConfigurationTests.swift in Sources */,
+				D7E68E0325A6154000C8F134 /* StorehouseConfigurationInMemoryTests.swift in Sources */,
 				D779B69724B7117300E496EB /* UploaderAccessibilityTests.swift in Sources */,
 				D724FFF12538533B002B31F3 /* BaseMockProvider.swift in Sources */,
 				27BC1FB02431C48D000AFC2C /* CLDNResult+CloudinaryTests.swift in Sources */,
@@ -998,6 +1064,7 @@
 				D7E79DCA24B515260082288A /* OcrMockProvider.swift in Sources */,
 				5D4D8C2D246098F900AE9C96 /* CLDConditionExpressionTests.swift in Sources */,
 				D79AE385244CC1D7004F2439 /* CLDTransformationTests.swift in Sources */,
+				D7E68E3825A779C300C8F134 /* StorehouseExpiryTests.swift in Sources */,
 				5DE4EC202469919A00F6C8D6 /* CLDTransformationBaselineTests.swift in Sources */,
 				27BC1FAE2431C3F6000AFC2C /* CLDNDataResponse+CloudinaryTests.swift in Sources */,
 				272C5182242B6C360093AB1B /* RequestTests.swift in Sources */,
@@ -1016,6 +1083,7 @@
 				272C518C242B6C360093AB1B /* BaseTestCase.swift in Sources */,
 				5D4D8C2E24609C1400AE9C96 /* ValidationTests.swift in Sources */,
 				272C51B4242B6C360093AB1B /* ResultTests.swift in Sources */,
+				D7E68E3325A76F3400C8F134 /* StorehouseAutoPurgingTests.swift in Sources */,
 				2AF4556A2559485200260D5A /* ObjcBaseTestCase.m in Sources */,
 				D7C2889025372FCA002846FE /* UploaderQualityAnalysisTests.swift in Sources */,
 			);

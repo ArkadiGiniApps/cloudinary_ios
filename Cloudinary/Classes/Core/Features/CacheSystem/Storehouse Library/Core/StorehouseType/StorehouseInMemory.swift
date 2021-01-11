@@ -58,11 +58,11 @@ public final class StorehouseInMemory<StoredItem>: StorehouseAnyInMemory<StoredI
     }
     
     public override var memoryCapacity : Int {
-        return 0
+        return NSNotFound
     }
     
     public override var currentMemoryUsage : Int {
-        return 0
+        return NSNotFound
     }
     
     /// MARK: - Fileprivate Properties
@@ -127,20 +127,16 @@ public final class StorehouseInMemory<StoredItem>: StorehouseAnyInMemory<StoredI
     
     public override func removeExpiredObjects() throws
     {
-        let allKeys = keys
         let now = Date()
-        try allKeys.forEach {
-            try removeObjectIfExpired(forKey: $0, since: now)
-        }
+        try removeStoredObjects(since: now)
     }
     
     public override func removeStoredObjects(since date: Date) throws
     {
         let allKeys = keys
-        let now = Date()
         
         try allKeys.forEach {
-            try removeObjectIfExpired(forKey: $0, since: now)
+            try removeObjectIfExpired(forKey: $0, since: date)
         }
     }
     
