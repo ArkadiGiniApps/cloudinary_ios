@@ -101,15 +101,10 @@ class WidgetSettingsViewController: UIViewController {
 }
 
 extension WidgetSettingsViewController: CLDUploaderWidgetDelegate {
-    func uploadWidget(_ widget: CLDUploaderWidget, willCall uploadRequests: [CLDUploadRequest]) {
-        print("uploader widget delegate - will call")
-    }
     
-    func widgetDidCancel(_ widget: CLDUploaderWidget) {
-        print("uploader widget delegate -  did cancel")
-    }
+    func uploadWidget(_ widget: CLDUploaderWidget, willCall uploadRequests: [CLDUploadRequest]) { }
     
-    func uploadWidgetDidDismiss() {
-        print("uploader widget delegate - did dismiss")
-    }
+    func widgetDidCancel(_ widget: CLDUploaderWidget) { }
+    
+    func uploadWidgetDidDismiss() { }
 }

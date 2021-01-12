@@ -218,7 +218,7 @@ class WidgetUITests: XCTestCase {
         
         // wait for image picker to load
         expectation(for: existsPredicate, evaluatedWith: imagePicker, handler: nil)
-        waitForExpectations(timeout: 10, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         // Then
         XCTAssertTrue(imagePicker.exists, "if no assets added to the widget, image picker should be presented")
