@@ -26,9 +26,8 @@
 import Foundation
 import XCTest
 
-class StorehouseHybridTests: XCTestCase {
+class StorehouseHybridTests: BaseStorehouseAnyTests<StorehouseHybrid<String>> {
 
-    var sut : StorehouseHybrid<String>!
     let maximumSizeDisk = 100_000_000
     
     override func setUp() {
@@ -152,112 +151,5 @@ class StorehouseHybridTests: XCTestCase {
         
         // Then
         XCTAssertEqual(currentDiskUsage, expectedDiskUsage, "entered strings should use expected disk space")
-    }
-    
-    // MARK: - funcs
-    func test_funcs_emptyEntry_shouldReturnNil() {
-        
-        let entry = try? sut.entry(forKey: "key")
-        
-        // Then
-        XCTAssertNil(entry, "uninserted value should be nil")
-    }
-    func test_funcs_setObjectAndEntry_objectShouldBeSet() {
-        
-        // Given
-        let objectToSave   = "objectToSave"
-        let savedObjectKey = "key"
-        
-        // When
-        try? sut.setObject(objectToSave, forKey: savedObjectKey)
-        let entry = try? sut.entry(forKey: savedObjectKey).object
-        
-        // Then
-        XCTAssertEqual(entry, objectToSave, "object should be set")
-    }
-    func test_funcs_removeAll_shouldReturnNil() {
-        
-        // Given
-        let objectToSave   = "objectToSave"
-        let savedObjectKey = "key"
-        
-        // When
-        try? sut.setObject(objectToSave, forKey: savedObjectKey)
-        try? sut.removeAll()
-        
-        let entry = try? sut.entry(forKey: savedObjectKey).object
-        
-        // Then
-        XCTAssertNil(entry, "removed value should be nil")
-    }
-    func test_funcs_removeByKey_shouldReturnNil() {
-        
-        // Given
-        let objectToSave   = "objectToSave"
-        let savedObjectKey = "key"
-        
-        // When
-        try? sut.setObject(objectToSave, forKey: savedObjectKey)
-        try? sut.removeObject(forKey: savedObjectKey)
-        
-        let entry = try? sut.entry(forKey: savedObjectKey).object
-        
-        // Then
-        XCTAssertNil(entry, "removed value should be nil")
-    }
-    func test_funcs_removeObjectIfExpired_shouldReturnNil() {
-        
-        // Given
-        let objectToSave   = "objectToSave"
-        let savedObjectKey = "key"
-        
-        // When
-        try? sut.setObject(objectToSave, forKey: savedObjectKey)
-        try? sut.removeObjectIfExpired(forKey: savedObjectKey)
-        
-        let entry = try? sut.entry(forKey: savedObjectKey).object
-        
-        // Then
-        XCTAssertNil(entry, "removed value should be nil")
-    }
-    func test_funcs_removeExpiredObjects_shouldReturnNil() {
-        
-        // Given
-        let objectToSave1   = "objectToSave1"
-        let savedObjectKey1 = "key1"
-        let objectToSave2   = "objectToSave2"
-        let savedObjectKey2 = "key2"
-        
-        // When
-        try? sut.setObject(objectToSave1, forKey: savedObjectKey1)
-        try? sut.setObject(objectToSave2, forKey: savedObjectKey2)
-        try? sut.removeExpiredObjects()
-        
-        let entry1 = try? sut.entry(forKey: savedObjectKey1).object
-        let entry2 = try? sut.entry(forKey: savedObjectKey2).object
-        
-        // Then
-        XCTAssertNil(entry1, "removed value should be nil")
-        XCTAssertNil(entry2, "removed value should be nil")
-    }
-    func test_funcs_removeStoredObjects_shouldReturnNil() {
-        
-        // Given
-        let objectToSave1   = "objectToSave1"
-        let savedObjectKey1 = "key1"
-        let objectToSave2   = "objectToSave2"
-        let savedObjectKey2 = "key2"
-        
-        // When
-        try? sut.setObject(objectToSave1, forKey: savedObjectKey1)
-        try? sut.setObject(objectToSave2, forKey: savedObjectKey2)
-        try? sut.removeStoredObjects(since: Date())
-        
-        let entry1 = try? sut.entry(forKey: savedObjectKey1).object
-        let entry2 = try? sut.entry(forKey: savedObjectKey2).object
-        
-        // Then
-        XCTAssertNil(entry1, "removed value should be nil")
-        XCTAssertNil(entry2, "removed value should be nil")
     }
 }
