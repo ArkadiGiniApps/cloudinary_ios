@@ -98,6 +98,8 @@
 		D73117582473D7A30051AAFC /* CLDExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D73117572473D7A30051AAFC /* CLDExpressionTests.m */; };
 		D731175A247415340051AAFC /* CLDConditionExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D7311759247415340051AAFC /* CLDConditionExpressionTests.m */; };
 		D731175C24741FBE0051AAFC /* CLDTransformationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D731175B24741FBE0051AAFC /* CLDTransformationTests.m */; };
+		D75F759B25AF632400300B0F /* CLDURLCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75F759A25AF632400300B0F /* CLDURLCacheTests.swift */; };
+		D75F75A425AF69A200300B0F /* CLDURLCacheConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75F75A325AF69A200300B0F /* CLDURLCacheConfigurationTests.swift */; };
 		D7788A3824DC482C00B63EB7 /* borderCollieCropped.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7788A3724DC482C00B63EB7 /* borderCollieCropped.jpg */; };
 		D7788A9424E29BEC00B63EB7 /* borderCollieRotatedJpg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D7788A9224E29BEC00B63EB7 /* borderCollieRotatedJpg.jpg */; };
 		D7788A9524E29BEC00B63EB7 /* borderCollieRotatedPng.png in Resources */ = {isa = PBXBuildFile; fileRef = D7788A9324E29BEC00B63EB7 /* borderCollieRotatedPng.png */; };
@@ -245,6 +247,8 @@
 		D73117572473D7A30051AAFC /* CLDExpressionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDExpressionTests.m; sourceTree = "<group>"; };
 		D7311759247415340051AAFC /* CLDConditionExpressionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDConditionExpressionTests.m; sourceTree = "<group>"; };
 		D731175B24741FBE0051AAFC /* CLDTransformationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDTransformationTests.m; sourceTree = "<group>"; };
+		D75F759A25AF632400300B0F /* CLDURLCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDURLCacheTests.swift; sourceTree = "<group>"; };
+		D75F75A325AF69A200300B0F /* CLDURLCacheConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDURLCacheConfigurationTests.swift; sourceTree = "<group>"; };
 		D7788A3724DC482C00B63EB7 /* borderCollieCropped.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = borderCollieCropped.jpg; sourceTree = "<group>"; };
 		D7788A9224E29BEC00B63EB7 /* borderCollieRotatedJpg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = borderCollieRotatedJpg.jpg; sourceTree = "<group>"; };
 		D7788A9324E29BEC00B63EB7 /* borderCollieRotatedPng.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = borderCollieRotatedPng.png; sourceTree = "<group>"; };
@@ -691,6 +695,15 @@
 			path = UploaderTests;
 			sourceTree = "<group>";
 		};
+		D75F759925AF62DA00300B0F /* CLDURLCache */ = {
+			isa = PBXGroup;
+			children = (
+				D75F759A25AF632400300B0F /* CLDURLCacheTests.swift */,
+				D75F75A325AF69A200300B0F /* CLDURLCacheConfigurationTests.swift */,
+			);
+			path = CLDURLCache;
+			sourceTree = "<group>";
+		};
 		D779B69324B7117200E496EB /* AccessibilityUploderTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -739,6 +752,7 @@
 		D7E68E0125A6138000C8F134 /* CLDURLCacheTests */ = {
 			isa = PBXGroup;
 			children = (
+				D75F759925AF62DA00300B0F /* CLDURLCache */,
 				D7E68E0A25A6169100C8F134 /* StorehouseLibraryTests */,
 			);
 			path = CLDURLCacheTests;
@@ -1119,6 +1133,7 @@
 				5DE4EC202469919A00F6C8D6 /* CLDTransformationBaselineTests.swift in Sources */,
 				27BC1FAE2431C3F6000AFC2C /* CLDNDataResponse+CloudinaryTests.swift in Sources */,
 				272C5182242B6C360093AB1B /* RequestTests.swift in Sources */,
+				D75F75A425AF69A200300B0F /* CLDURLCacheConfigurationTests.swift in Sources */,
 				D7E79DC924B515260082288A /* UploaderOcrTests.swift in Sources */,
 				272C51B3242B6C360093AB1B /* CLDNError+CloudinaryTests.swift in Sources */,
 				D779B69824B7117300E496EB /* UploaderAccessibilityTests.m in Sources */,
@@ -1127,6 +1142,7 @@
 				272C5183242B6C360093AB1B /* SessionDelegateTests.swift in Sources */,
 				5D53A9522488CE23005C14AB /* CLDConfigurationTests.m in Sources */,
 				D7E79DCB24B515260082288A /* ExplicitMockOcrTests.m in Sources */,
+				D75F759B25AF632400300B0F /* CLDURLCacheTests.swift in Sources */,
 				D71B7902246808EE004AA28E /* CLDTransformationConditionsTests.swift in Sources */,
 				274C6D3623FBAF5E0090BC40 /* UploaderTests.swift in Sources */,
 				D7E79DCD24B515260082288A /* UploaderMockOcrTests.swift in Sources */,
