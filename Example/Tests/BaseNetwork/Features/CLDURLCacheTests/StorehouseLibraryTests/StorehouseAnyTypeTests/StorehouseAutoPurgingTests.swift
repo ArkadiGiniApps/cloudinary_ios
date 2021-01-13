@@ -72,8 +72,8 @@ class StorehouseAutoPurgingTests: XCTestCase {
         let uninitializedSut = StorehouseAutoPurging(configuration: configuration, transformer: transformer)
         
         // Then
-        XCTAssertEqual(uninitializedSut.memoryCapacity, memory, "default value should be equal to expected value")
-        XCTAssertEqual(uninitializedSut.preferredMemoryUsageAfterPurge, afterPurge, "default value should be equal to expected value")
+        XCTAssertEqual(uninitializedSut.memoryCapacity, memory, "initialized value should be equal to expected value")
+        XCTAssertEqual(uninitializedSut.preferredMemoryUsageAfterPurge, afterPurge, "initialized value should be equal to expected value")
     }
     
     // MARK: - vars

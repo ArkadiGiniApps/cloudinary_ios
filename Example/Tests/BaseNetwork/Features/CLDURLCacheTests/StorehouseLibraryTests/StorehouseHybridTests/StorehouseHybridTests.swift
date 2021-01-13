@@ -1,5 +1,5 @@
 //
-//  StorehouseInMemoryTests.swift
+//  StorehouseHybridTests.swift
 //
 //  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
 //
@@ -26,25 +26,42 @@
 import Foundation
 import XCTest
 
-class StorehouseInMemoryTests: XCTestCase {
+class StorehouseHybridTests: XCTestCase {
 
-    var sut : StorehouseInMemory<String>!
+    var sut : StorehouseHybrid<String>!
+    let maximumSizeDisk = 100_000_000
     
     override func setUp() {
         super.setUp()
         
-        createSut()
+        sut = createSut()
     }
     
-    func createSut() {
-       
-        let expiryDate    : Date             = Date()
-        let expiry        : StorehouseExpiry = .date(expiryDate)
-        let countLimit    : UInt             = 100_000_000
-        let totalCostLimit: UInt             = 100_000_000
-        let configuration                    = StorehouseConfigurationInMemory(expiry: expiry, countLimit: countLimit, totalCostLimit: totalCostLimit)
+    func createSut() -> StorehouseHybrid<String>! {
         
-        sut = StorehouseInMemory(configuration: configuration)
+        // create storehouseOnDisk
+        let nameDisk          : String               = "nameTest"
+        let expiryDateDisk    : Date                 = Date()
+        let expiryDisk        : StorehouseExpiry     = .date(expiryDateDisk)
+        let maxSizeDisk       : Int                  = maximumSizeDisk
+        let protectionTypeDisk: FileProtectionType?  = .complete
+        
+        let configuration = StorehouseConfigurationDisk(name: nameDisk , expiry: expiryDisk , maxSize: maxSizeDisk, protectionType: protectionTypeDisk)
+        let transformer   = WarehouseTransformerFactory.forCodable(ofType: String.self)
+        
+        let storehouseOnDisk: StorehouseOnDisk<String> = try! StorehouseOnDisk(configuration: configuration, transformer: transformer)
+        
+        // create storehouseInMemory
+        let expiryDateMemory    : Date             = Date()
+        let expiryMemory        : StorehouseExpiry = .date(expiryDateMemory)
+        let countLimitMemory    : UInt             = 100_000_000
+        let totalCostLimitMemory: UInt             = 100_000_000
+        let configurationMemory                    = StorehouseConfigurationInMemory(expiry: expiryMemory, countLimit: countLimitMemory, totalCostLimit: totalCostLimitMemory)
+        
+        let storehouseInMemory: StorehouseInMemory<String> = StorehouseInMemory(configuration: configurationMemory)
+        
+        // create storehouseHybrid
+        return StorehouseHybrid(inMemory: storehouseInMemory, onDisk: storehouseOnDisk)
     }
     
     override func tearDownWithError() throws {
@@ -55,30 +72,91 @@ class StorehouseInMemoryTests: XCTestCase {
     }
     
     // MARK: - init
-    func test_init_shouldStoreDefaultProperties() {
-        
-        // Given
-        let defaultMemoryCapacity     = NSNotFound
-        let defaultCurrentMemoryUsage = NSNotFound
-        
-        let expiryDate    : Date             = Date()
-        let expiry        : StorehouseExpiry = .date(expiryDate)
-        let countLimit    : UInt             = 9
-        let totalCostLimit: UInt             = 11
-        let configuration                    = StorehouseConfigurationInMemory(expiry: expiry, countLimit: countLimit, totalCostLimit: totalCostLimit)
+    func test_init_shouldBeInitialized() {
         
         // When
-        let uninitializedSut: StorehouseInMemory<String> = StorehouseInMemory(configuration: configuration)
+        let tempSut = createSut()
         
         // Then
-        XCTAssertEqual(uninitializedSut.memoryCapacity, defaultMemoryCapacity, "default value should be equal to expected value")
-        XCTAssertEqual(uninitializedSut.currentMemoryUsage, defaultCurrentMemoryUsage, "default value should be equal to expected value")
+        XCTAssertNotNil(tempSut, "sut should be initialized")
+    }
+
+    // MARK: - vars
+    func test_vars_shouldReturnExpectedValue() {
+        
+        // Given
+        let expectedMemoryCapacity = NSNotFound
+        let expectedDiskCapacity   = maximumSizeDisk
+        let expectedMemoryUsage    = NSNotFound
+        let expectedDiskUsage      = 25
+        
+        let objectToSave   = "objectToSave"
+        let savedObjectKey = "key"
+        
+        // When
+        try? sut.setObject(objectToSave, forKey: savedObjectKey)
+        
+        // Then
+        XCTAssertEqual(sut.memoryCapacity, expectedMemoryCapacity, "initialized value should be equal to expected value")
+        XCTAssertEqual(sut.diskCapacity, expectedDiskCapacity, "initialized value should be equal to expected value")
+        XCTAssertEqual(sut.currentMemoryUsage, expectedMemoryUsage, "initialized value should be equal to expected value")
+        XCTAssertEqual(sut.currentDiskUsage, expectedDiskUsage, "initialized value should be equal to expected value")
+    }
+    func test_vars_diskCapacity_shouldReturnExpectedValue() {
+        
+        // Given
+        let objectToSave1   = "objectToSave1"
+        let savedObjectKey1 = "key1"
+        let objectToSave2   = "objectToSave2"
+        let savedObjectKey2 = "key2"
+        let expectedDiskUsage = 52
+        
+        // When
+        try? sut.setObject(objectToSave1, forKey: savedObjectKey1)
+        try? sut.setObject(objectToSave2, forKey: savedObjectKey2)
+        let currentDiskUsage = sut.currentDiskUsage
+        
+        // Then
+        XCTAssertEqual(currentDiskUsage, expectedDiskUsage, "entered strings should use expected disk space")
+    }
+    func test_vars_memoryCapacity_shouldReturnExpectedValue() {
+        
+        // Given
+        let objectToSave1   = "objectToSave1"
+        let savedObjectKey1 = "key1"
+        let objectToSave2   = "objectToSave2"
+        let savedObjectKey2 = "key2"
+        let expectedDiskUsage = 52
+        
+        // When
+        try? sut.setObject(objectToSave1, forKey: savedObjectKey1)
+        try? sut.setObject(objectToSave2, forKey: savedObjectKey2)
+        let currentDiskUsage = sut.currentDiskUsage
+        
+        // Then
+        XCTAssertEqual(currentDiskUsage, expectedDiskUsage, "entered strings should use expected disk space")
+    }
+    func test_vars_currentMemoryUsage_shouldReturnExpectedValue() {
+        
+        // Given
+        let objectToSave1   = "objectToSave1"
+        let savedObjectKey1 = "key1"
+        let objectToSave2   = "objectToSave2"
+        let savedObjectKey2 = "key2"
+        let expectedDiskUsage = 52
+        
+        // When
+        try? sut.setObject(objectToSave1, forKey: savedObjectKey1)
+        try? sut.setObject(objectToSave2, forKey: savedObjectKey2)
+        let currentDiskUsage = sut.currentDiskUsage
+        
+        // Then
+        XCTAssertEqual(currentDiskUsage, expectedDiskUsage, "entered strings should use expected disk space")
     }
     
     // MARK: - funcs
     func test_funcs_emptyEntry_shouldReturnNil() {
         
-        // When
         let entry = try? sut.entry(forKey: "key")
         
         // Then

@@ -73,7 +73,8 @@ class StorehouseOnDiskTests: XCTestCase {
         let uninitializedSut = try? StorehouseOnDisk(configuration: configuration, transformer: transformer)
         
         // Then
-        XCTAssertEqual(uninitializedSut?.cacheContainerName, name, "default value should be equal to expected value")
+        XCTAssertEqual(uninitializedSut?.cacheContainerName, name, "initialized value should be equal to expected value")
+        XCTAssertEqual(uninitializedSut?.diskCapacity, maxSize, "initialized value should be equal to expected value")
     }
 
     // MARK: - vars
