@@ -48,9 +48,9 @@ class StorehouseConfigurationInMemoryTests: XCTestCase {
         sut = StorehouseConfigurationInMemory(expiry: expiry, countLimit: countLimit, totalCostLimit: totalCostLimit)
         
         // Then
-        XCTAssertEqual(sut.expiry.date, expiryDate, "Initilized object should contain value")
-        XCTAssertEqual(sut.countLimit, countLimit, "Initilized object should contain value")
-        XCTAssertEqual(sut.totalCostLimit, totalCostLimit, "Initilized object should contain value")
+        XCTAssertEqual(sut.expiry.date, expiryDate, "Initilized object should contain expected value")
+        XCTAssertEqual(sut.countLimit, countLimit, "Initilized object should contain expected value")
+        XCTAssertEqual(sut.totalCostLimit, totalCostLimit, "Initilized object should contain expected value")
     }
     func test_init_emptyParamaters_shouldStoreDefaultProperties() {
         

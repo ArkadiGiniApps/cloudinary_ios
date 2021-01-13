@@ -68,6 +68,7 @@ class StorehouseOnDiskTests: BaseStorehouseAnyTests<StorehouseOnDisk<String>> {
         let configuration = StorehouseConfigurationDisk(name: name, expiry: expiry, maxSize: maxSize, protectionType: protectionType)
         let transformer   = WarehouseTransformerFactory.forCodable(ofType: String.self)
         
+        // When
         let uninitializedSut = try? StorehouseOnDisk(configuration: configuration, transformer: transformer)
         
         // Then

@@ -48,9 +48,9 @@ class StorehouseConfigurationAutoPurgingTests: XCTestCase {
         sut = StorehouseConfigurationAutoPurging(expiry: expiry, memory: memory, preferredMemoryUsageAfterPurge: afterPurge)
         
         // Then
-        XCTAssertEqual(sut.expiry.date, expiryDate, "Initilized object should contain value")
-        XCTAssertEqual(sut.memoryCapacity, memory, "Initilized object should contain value")
-        XCTAssertEqual(sut.preferredMemoryUsageAfterPurge, afterPurge, "Initilized object should contain value")
+        XCTAssertEqual(sut.expiry.date, expiryDate, "Initilized object should contain expected value")
+        XCTAssertEqual(sut.memoryCapacity, memory, "Initilized object should contain expected value")
+        XCTAssertEqual(sut.preferredMemoryUsageAfterPurge, afterPurge, "Initilized object should contain expected value")
     }
     func test_init_emptyParamaters_shouldStoreDefaultProperties() {
         

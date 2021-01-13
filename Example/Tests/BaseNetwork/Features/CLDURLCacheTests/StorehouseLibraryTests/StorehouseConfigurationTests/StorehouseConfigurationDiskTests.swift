@@ -49,10 +49,10 @@ class StorehouseConfigurationDiskTests: XCTestCase {
         sut = StorehouseConfigurationDisk(name: name, expiry: expiry, maxSize: maxSize, protectionType: protectionType)
         
         // Then
-        XCTAssertEqual(sut.name, name, "Initilized object should contain value")
-        XCTAssertEqual(sut.expiry.date, expiryDate, "Initilized object should contain value")
-        XCTAssertEqual(sut.maximumSize, maxSize, "Initilized object should contain value")
-        XCTAssertEqual(sut.protectionType, protectionType, "Initilized object should contain value")
+        XCTAssertEqual(sut.name, name, "Initilized object should contain expected value")
+        XCTAssertEqual(sut.expiry.date, expiryDate, "Initilized object should contain expected value")
+        XCTAssertEqual(sut.maximumSize, maxSize, "Initilized object should contain expected value")
+        XCTAssertEqual(sut.protectionType, protectionType, "Initilized object should contain expected value")
     }
     func test_init_onlyNameParamaters_shouldStoreDefaultProperties() {
         

@@ -262,4 +262,43 @@ class StorehouseAccessorTests: XCTestCase {
         XCTAssertNil(entry1, "removed value should be nil")
         XCTAssertNil(entry2, "removed value should be nil")
     }
+    func test_funcs_Object_objectShouldBeSet() {
+        
+        // Given
+        let objectToSave   = "objectToSave"
+        let savedObjectKey = "key"
+        
+        // When
+        try? sut.setObject(objectToSave, forKey: savedObjectKey)
+        let entry = try? sut.object(forKey: savedObjectKey)
+        
+        // Then
+        XCTAssertEqual(entry, objectToSave, "object should be set")
+    }
+    func test_funcs_exists_objectShouldExists() {
+        
+        // Given
+        let objectToSave   = "objectToSave"
+        let savedObjectKey = "key"
+        
+        // When
+        try? sut.setObject(objectToSave, forKey: savedObjectKey)
+        let objectExists = try? sut.existsObject(forKey: savedObjectKey)
+        
+        // Then
+        XCTAssert(objectExists == true, "object should be set")
+    }
+    func test_funcs_expired_objectShouldBeExpired() {
+        
+        // Given
+        let objectToSave   = "objectToSave"
+        let savedObjectKey = "key"
+        
+        // When
+        try? sut.setObject(objectToSave, forKey: savedObjectKey)
+        let objectExpired = try? sut.isExpiredObject(forKey: savedObjectKey)
+        
+        // Then
+        XCTAssertTrue(objectExpired == true, "object should be expired")
+    }
 }

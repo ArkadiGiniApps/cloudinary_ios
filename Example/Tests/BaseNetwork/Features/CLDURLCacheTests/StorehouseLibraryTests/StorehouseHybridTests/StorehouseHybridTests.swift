@@ -81,7 +81,7 @@ class StorehouseHybridTests: BaseStorehouseAnyTests<StorehouseHybrid<String>> {
     }
 
     // MARK: - vars
-    func test_vars_shouldReturnExpectedValue() {
+    func test_vars_shouldReturnExpectedValues() {
         
         // Given
         let expectedMemoryCapacity = NSNotFound
@@ -101,48 +101,14 @@ class StorehouseHybridTests: BaseStorehouseAnyTests<StorehouseHybrid<String>> {
         XCTAssertEqual(sut.currentMemoryUsage, expectedMemoryUsage, "initialized value should be equal to expected value")
         XCTAssertEqual(sut.currentDiskUsage, expectedDiskUsage, "initialized value should be equal to expected value")
     }
-    func test_vars_diskCapacity_shouldReturnExpectedValue() {
+    func test_vars_diskUsage_shouldReturnExpectedValue() {
         
         // Given
-        let objectToSave1   = "objectToSave1"
-        let savedObjectKey1 = "key1"
-        let objectToSave2   = "objectToSave2"
-        let savedObjectKey2 = "key2"
-        let expectedDiskUsage = 52
-        
-        // When
-        try? sut.setObject(objectToSave1, forKey: savedObjectKey1)
-        try? sut.setObject(objectToSave2, forKey: savedObjectKey2)
-        let currentDiskUsage = sut.currentDiskUsage
-        
-        // Then
-        XCTAssertEqual(currentDiskUsage, expectedDiskUsage, "entered strings should use expected disk space")
-    }
-    func test_vars_memoryCapacity_shouldReturnExpectedValue() {
-        
-        // Given
-        let objectToSave1   = "objectToSave1"
-        let savedObjectKey1 = "key1"
-        let objectToSave2   = "objectToSave2"
-        let savedObjectKey2 = "key2"
-        let expectedDiskUsage = 52
-        
-        // When
-        try? sut.setObject(objectToSave1, forKey: savedObjectKey1)
-        try? sut.setObject(objectToSave2, forKey: savedObjectKey2)
-        let currentDiskUsage = sut.currentDiskUsage
-        
-        // Then
-        XCTAssertEqual(currentDiskUsage, expectedDiskUsage, "entered strings should use expected disk space")
-    }
-    func test_vars_currentMemoryUsage_shouldReturnExpectedValue() {
-        
-        // Given
-        let objectToSave1   = "objectToSave1"
-        let savedObjectKey1 = "key1"
-        let objectToSave2   = "objectToSave2"
-        let savedObjectKey2 = "key2"
-        let expectedDiskUsage = 52
+        let objectToSave1        = "objectToSave1"
+        let savedObjectKey1      = "key1"
+        let objectToSave2        = "objectToSave2"
+        let savedObjectKey2      = "key2"
+        let expectedDiskUsage    = 52
         
         // When
         try? sut.setObject(objectToSave1, forKey: savedObjectKey1)
