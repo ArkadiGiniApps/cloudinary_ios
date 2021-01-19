@@ -122,21 +122,9 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
     
      - returns: The new `CLDCloudinary` instance.
      */
-    public init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter? = nil, sessionConfiguration: URLSessionConfiguration? = nil) {
-        config = configuration
-        if let customNetworkAdapter = networkAdapter {
-            networkCoordinator  = CLDNetworkCoordinator(configuration: config, networkAdapter: customNetworkAdapter)
-        } else {
-            if let sessionConfiguration = sessionConfiguration {
-                networkCoordinator  = CLDNetworkCoordinator(configuration: config, sessionConfiguration: sessionConfiguration)
-            } else {
-                networkCoordinator  = CLDNetworkCoordinator(configuration: config)
-            }
-        }
-        
-        downloadCoordinator = CLDDownloadCoordinator(configuration: config)
-        
-        super.init()
+    public convenience init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter? = nil, sessionConfiguration: URLSessionConfiguration? = nil) {
+
+        self.init(configuration: configuration, networkAdapter: networkAdapter, downloadAdapter: nil, sessionConfiguration: sessionConfiguration, downloadSessionConfiguration: nil)
     }
     
     /**
