@@ -22,7 +22,7 @@ extension CLDDownloader
        */
        @discardableResult
        open func fetchImage(_ url: String, _ progress: ((Progress) -> Void)? = nil, completionHandler: CLDCompletionHandler? = nil) -> CLDFetchImageRequest {
-           let request = CLDFetchImageRequestImpl(url: url, networkCoordinator: networkCoordinator)
+           let request = CLDFetchImageRequestImpl(url: url, downloadCoordinator: downloadCoordinator)
            request.fetchImage()
            request.responseImage(completionHandler)
            request.progress(progress)

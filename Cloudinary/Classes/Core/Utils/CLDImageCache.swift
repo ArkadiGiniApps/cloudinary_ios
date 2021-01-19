@@ -30,7 +30,7 @@ import UIKit
     case none, memory, disk
 }
 
-private struct Defines {
+internal struct Defines {
     static let cacheDefaultName = "defaultImageCache"
     static let cacheBaseName = "com.cloudinary.sdk.imageCache"
     static let readWriteQueueName = "com.cloudinary.sdk.imageCache.readWriteQueue"

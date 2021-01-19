@@ -28,7 +28,7 @@ import UIKit
 internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
     
     fileprivate let url: String
-    fileprivate let networkCoordinator: CLDNetworkCoordinator
+    fileprivate let downloadCoordinator: CLDDownloadCoordinator
     
     fileprivate let closureQueue: OperationQueue
     
@@ -40,9 +40,9 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
     fileprivate var imageDownloadRequest: CLDNetworkDownloadRequest?
     fileprivate var progress: ((Progress) -> Void)?
     
-    init(url: String, networkCoordinator: CLDNetworkCoordinator) {
+    init(url: String, downloadCoordinator: CLDDownloadCoordinator) {
         self.url = url
-        self.networkCoordinator = networkCoordinator
+        self.downloadCoordinator = downloadCoordinator
         closureQueue = {
             let operationQueue = OperationQueue()
             operationQueue.maxConcurrentOperationCount = 1
@@ -75,7 +75,7 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
     // MARK: Private
     
     fileprivate func downloadImageAndCacheIt() {
-        imageDownloadRequest = networkCoordinator.download(url) as? CLDNetworkDownloadRequest
+        imageDownloadRequest = downloadCoordinator.download(url) as? CLDNetworkDownloadRequest
         imageDownloadRequest?.progress(progress)
         
         imageDownloadRequest?.responseData { [weak self] (responseData, responseError) -> () in

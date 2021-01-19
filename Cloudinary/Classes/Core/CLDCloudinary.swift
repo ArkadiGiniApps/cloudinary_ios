@@ -43,7 +43,7 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
     /**
      The network download coordinator coordinates between the SDK's API level classes to its network adapter layer.
      */
-    fileprivate var downloadCoordinator: CLDNetworkCoordinator
+    fileprivate var downloadCoordinator: CLDDownloadCoordinator
 
     // MARK: - SDK Configurations
 
@@ -69,10 +69,10 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
      */
     open var cachePolicy: CLDImageCachePolicy {
         get {
-            return CLDImageCache.defaultImageCache.cachePolicy
+            return downloadCoordinator.imageCache.cachePolicy
         }
         set {
-            CLDImageCache.defaultImageCache.cachePolicy = newValue
+            downloadCoordinator.imageCache.cachePolicy = newValue
         }
     }
 
@@ -82,10 +82,10 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
      */
     open var cacheMaxDiskCapacity: UInt64 {
         get {
-            return CLDImageCache.defaultImageCache.maxDiskCapacity
+            return downloadCoordinator.imageCache.maxDiskCapacity
         }
         set {
-            CLDImageCache.defaultImageCache.maxDiskCapacity = newValue
+            downloadCoordinator.imageCache.maxDiskCapacity = newValue
         }
     }
 
@@ -95,10 +95,10 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
      */
     open var cacheMaxMemoryTotalCost: Int {
         get {
-            return CLDImageCache.defaultImageCache.maxMemoryTotalCost
+            return downloadCoordinator.imageCache.maxMemoryTotalCost
         }
         set {
-            CLDImageCache.defaultImageCache.maxMemoryTotalCost = newValue
+            downloadCoordinator.imageCache.maxMemoryTotalCost = newValue
         }
     }
 
@@ -109,7 +109,7 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
 
     */
     open func removeFromCache(key: String) {
-        CLDImageCache.defaultImageCache.removeCacheImageForKey(key)
+        downloadCoordinator.imageCache.removeCacheImageForKey(key)
     }
 
     // MARK: - Init
@@ -134,7 +134,7 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
             }
         }
         
-        downloadCoordinator = CLDNetworkCoordinator(configuration: config)
+        downloadCoordinator = CLDDownloadCoordinator(configuration: config)
         
         super.init()
     }
@@ -165,12 +165,12 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
         }
         
         if let customDownloadAdapter = downloadAdapter {
-            downloadCoordinator = CLDNetworkCoordinator(configuration: config, networkAdapter: customDownloadAdapter)
+            downloadCoordinator = CLDDownloadCoordinator(configuration: config, networkAdapter: customDownloadAdapter)
         } else {
             if let downloadSessionConfiguration = downloadSessionConfiguration {
-                downloadCoordinator = CLDNetworkCoordinator(configuration: config, sessionConfiguration: downloadSessionConfiguration)
+                downloadCoordinator = CLDDownloadCoordinator(configuration: config, sessionConfiguration: downloadSessionConfiguration)
             } else {
-                downloadCoordinator = CLDNetworkCoordinator(configuration: config)
+                downloadCoordinator = CLDDownloadCoordinator(configuration: config)
             }
         }
         
@@ -203,7 +203,7 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
      - returns: A new `CLDDownloader` instance.
      */
     open func createDownloader() -> CLDDownloader {
-        return CLDDownloader(networkCoordinator: networkCoordinator)
+        return CLDDownloader(downloadCoordinator: downloadCoordinator)
     }
 
     /**
