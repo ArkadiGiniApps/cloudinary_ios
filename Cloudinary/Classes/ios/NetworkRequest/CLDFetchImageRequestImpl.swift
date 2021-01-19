@@ -55,8 +55,8 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
     
     func fetchImage() {
         DispatchQueue.global(qos: DispatchQoS.QoSClass.default).async {
-            if CLDImageCache.defaultImageCache.hasCachedImageForKey(self.url) {
-                CLDImageCache.defaultImageCache.getImageForKey(self.url, completion: { [weak self] (image) -> () in
+            if self.downloadCoordinator.imageCache.hasCachedImageForKey(self.url) {
+                self.downloadCoordinator.imageCache.getImageForKey(self.url, completion: { [weak self] (image) -> () in
                     if let fetchedImage = image {
                         self?.image = fetchedImage
                         self?.closureQueue.isSuspended = false
@@ -84,7 +84,7 @@ internal class CLDFetchImageRequestImpl: CLDFetchImageRequest {
                     image = data.cldToUIImageThreadSafe(),
                     let url = self?.url {
                     self?.image = image
-                    CLDImageCache.defaultImageCache.cacheImage(image, data: data, key: url, completion: nil)
+                    self?.downloadCoordinator.imageCache.cacheImage(image, data: data, key: url, completion: nil)
                 }
                 else {
                     let error = CLDError.error(code: .failedCreatingImageFromData, message: "Failed creating an image from the received data.")
