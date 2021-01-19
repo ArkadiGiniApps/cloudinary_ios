@@ -40,6 +40,10 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
      */
     fileprivate var networkCoordinator: CLDNetworkCoordinator
 
+    /**
+     The network download coordinator coordinates between the SDK's API level classes to its network adapter layer.
+     */
+    fileprivate var downloadCoordinator: CLDNetworkCoordinator
 
     // MARK: - SDK Configurations
 
@@ -121,6 +125,36 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
     public init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter? = nil, sessionConfiguration: URLSessionConfiguration? = nil) {
         config = configuration
         if let customNetworkAdapter = networkAdapter {
+            networkCoordinator  = CLDNetworkCoordinator(configuration: config, networkAdapter: customNetworkAdapter)
+        } else {
+            if let sessionConfiguration = sessionConfiguration {
+                networkCoordinator  = CLDNetworkCoordinator(configuration: config, sessionConfiguration: sessionConfiguration)
+            } else {
+                networkCoordinator  = CLDNetworkCoordinator(configuration: config)
+            }
+        }
+        
+        downloadCoordinator = CLDNetworkCoordinator(configuration: config)
+        
+        super.init()
+    }
+    
+    /**
+    Initializes the `CLDCloudinary` instance with the specified configuration and network adapter.
+     
+    - parameter configuration:                The configuration used by this CLDCloudinary instance.
+    - parameter networkAdapter:               A network adapter that implements `CLDNetworkAdapter`.
+    - parameter downloadAdapter:              A download adapter that implements `CLDNetworkAdapter`.
+    - parameter sessionConfiguration:         A session configuration that implements `URLSessionConfiguration`.
+    - parameter downloadSessionConfiguration: A download session configuration that implements `URLSessionConfiguration`.
+     CLDNetworkDelegate() by default.
+    
+     - returns: The new `CLDCloudinary` instance.
+     */
+    public init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter? = nil, downloadAdapter: CLDNetworkAdapter? = nil, sessionConfiguration: URLSessionConfiguration? = nil, downloadSessionConfiguration: URLSessionConfiguration? = nil) {
+        
+        config = configuration
+        if let customNetworkAdapter = networkAdapter {
             networkCoordinator = CLDNetworkCoordinator(configuration: config, networkAdapter: customNetworkAdapter)
         } else {
             if let sessionConfiguration = sessionConfiguration {
@@ -129,6 +163,17 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
                 networkCoordinator = CLDNetworkCoordinator(configuration: config)
             }
         }
+        
+        if let customDownloadAdapter = downloadAdapter {
+            downloadCoordinator = CLDNetworkCoordinator(configuration: config, networkAdapter: customDownloadAdapter)
+        } else {
+            if let downloadSessionConfiguration = downloadSessionConfiguration {
+                downloadCoordinator = CLDNetworkCoordinator(configuration: config, sessionConfiguration: downloadSessionConfiguration)
+            } else {
+                downloadCoordinator = CLDNetworkCoordinator(configuration: config)
+            }
+        }
+        
         super.init()
     }
 
