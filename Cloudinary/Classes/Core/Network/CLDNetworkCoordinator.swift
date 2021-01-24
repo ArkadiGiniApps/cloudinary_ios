@@ -39,7 +39,13 @@ internal class CLDNetworkCoordinator {
     
     // MARK: - Init
     
-    init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter = CLDDefaultNetworkAdapter.sharedNetworkDelegate) {
+    init(configuration: CLDConfiguration) {
+
+        config = configuration
+        self.networkAdapter = CLDDefaultNetworkAdapter(configuration: nil)
+    }
+    
+    init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter) {
         config = configuration
         self.networkAdapter = networkAdapter
     }
@@ -185,5 +191,34 @@ internal class CLDNetworkCoordinator {
     internal func setMaxConcurrentDownloads(_ maxConcurrentDownloads: Int) {
         networkAdapter.setMaxConcurrentDownloads(maxConcurrentDownloads)
     }
+}
+
+class CLDDownloadCoordinator: CLDNetworkCoordinator {
     
+    var imageCache = CLDImageCache(name: Defines.cacheDefaultName)
+    
+    override init(configuration: CLDConfiguration) {
+        // we need to use a different identifier then the regular networkAdapter's sessionConfiguration identifier
+        let sessionConfiguration: URLSessionConfiguration = {
+            let configuration = URLSessionConfiguration.background(withIdentifier: SessionProperties.identifier)
+            configuration.httpAdditionalHeaders = CLDNSessionManager.defaultHTTPHeaders
+            configuration.urlCache = CLDURLCache(memoryCapacity: 100_000_000, diskCapacity: 100_000_000, diskPath: "FeedImageDownloader",configuration:  CLDURLCacheConfiguration.defualt)
+            
+            return configuration
+        }()
+        
+        super.init(configuration: configuration, sessionConfiguration: sessionConfiguration)
+    }
+    
+    override init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter) {
+        super.init(configuration: configuration, networkAdapter: networkAdapter)
+    }
+
+    override init(configuration: CLDConfiguration, sessionConfiguration: URLSessionConfiguration) {
+        super.init(configuration: configuration, sessionConfiguration: sessionConfiguration)
+    }
+    
+    private struct SessionProperties {
+        static let identifier: String = "" + ".cloudinarySDKbackgroundDownloadSession"
+    }
 }

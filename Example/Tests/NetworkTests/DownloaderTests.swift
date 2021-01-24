@@ -24,12 +24,12 @@
 
 import XCTest
 import Cloudinary
+@testable import Cloudinary
 
 class DownloaderTests: NetworkBaseTest {
-    
+        
     // MARK: - Tests
-    
-    func testDownloadImage() {
+    func test_downloadImage_shouldDownloadImage() {
         XCTAssertNotNil(cloudinarySecured.config.apiSecret, "Must set api secret for this test")
         
         var expectation = self.expectation(description: "Upload should succeed")
@@ -66,12 +66,56 @@ class DownloaderTests: NetworkBaseTest {
         XCTAssertNotNil(response, "response should not be nil")
         XCTAssertNil(error, "error should be nil")
     }
+    func test_downloadImageWithCache_shouldCacheAndRemoveImage() {
+        downloadImageWithCache_shouldCacheImage(cloudinaryObject: cloudinarySecured)
+    }
+    func test_downloadImageWithoutCache_shouldCacheImage() {
+        downloadImageWithoutCache_shouldNotCacheImage(cloudinaryObject: cloudinarySecured)
+    }
     
-    func testDownloadImageWithCache() {
-        XCTAssertNotNil(cloudinarySecured.config.apiSecret, "Must set api secret for this test")
+    func test_downloadImageWithCache_emptyInit_shouldCacheImage() {
         
+        // Given
+        let config: CLDConfiguration
+        if let url  = Bundle(for: type(of: self)).infoDictionary?["cldCloudinaryUrl"] as? String, url.count > 0 {
+            config  = CLDConfiguration(cloudinaryUrl: url)!
+        } else {
+            config  = CLDConfiguration.initWithEnvParams() ?? CLDConfiguration(cloudinaryUrl: "cloudinary://a:b@test123")!
+        }
+
+        // When
+        let tempSut = CLDCloudinary(configuration: config, networkAdapter: nil, downloadAdapter: nil, sessionConfiguration: nil, downloadSessionConfiguration: nil)
+            
+        downloadImageWithCache_shouldCacheImage(cloudinaryObject: tempSut)
+    }
+    func test_downloadImageWithoutCache_emptyInit_shouldCacheImage() {
+        
+        // Given
+        let config: CLDConfiguration
+        if let url  = Bundle(for: type(of: self)).infoDictionary?["cldCloudinaryUrl"] as? String, url.count > 0 {
+            config  = CLDConfiguration(cloudinaryUrl: url)!
+        } else {
+            config  = CLDConfiguration.initWithEnvParams() ?? CLDConfiguration(cloudinaryUrl: "cloudinary://a:b@test123")!
+        }
+        
+        // When
+        let tempSut = CLDCloudinary(configuration: config, networkAdapter: nil, downloadAdapter: nil, sessionConfiguration: nil, downloadSessionConfiguration: nil)
+            
+        downloadImageWithoutCache_shouldNotCacheImage(cloudinaryObject: tempSut)
+    }
+}
+
+extension DownloaderTests {
+    
+    // MARK: - cache by cloudinary
+    func downloadImageWithCache_shouldCacheImage(cloudinaryObject: CLDCloudinary) {
+       
+        XCTAssertNotNil(cloudinaryObject.config.apiSecret, "Must set api secret for this test")
+        
+        // When
         var expectation = self.expectation(description: "Upload should succeed")
         
+        /// upload file to get publicId
         var publicId: String?
         uploadFile().response({ (result, error) in
             XCTAssertNil(error)
@@ -89,13 +133,11 @@ class DownloaderTests: NetworkBaseTest {
         expectation = self.expectation(description: "Download should succeed")
         
         var response: UIImage?
-        var error: NSError?
-        
-        var url = cloudinarySecured!.createUrl().generate(pubId)
-        cloudinarySecured.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
+        /// download image by publicId - first time, no cache yet
+        let url = cloudinaryObject.createUrl().generate(pubId)
+        cloudinaryObject.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
             response = responseImage
-            error = errorRes
-            
+            // ozzzzz this is where we dont get response. why?? 
             expectation.fulfill()
         })
         
@@ -104,25 +146,24 @@ class DownloaderTests: NetworkBaseTest {
         expectation = self.expectation(description: "Download should succeed")
         
         var responseCached: UIImage?
-        
-        cloudinarySecured.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
+        /// download image by publicId - should get from cache so responses should be equal
+        cloudinaryObject.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
             responseCached = responseImage
-            error = errorRes
             
             expectation.fulfill()
         })
         
         waitForExpectations(timeout: timeout, handler: nil)
         
-        XCTAssertEqual(response, responseCached, "Images should be same because responseCached get from cache")
+        // Then
+        XCTAssertEqual(response, responseCached, "Images should be equal because it is the image we cached")
 
         expectation = self.expectation(description: "Download should succeed")
         
-        // remove from cache and re-download - image should be different:
-        cloudinarySecured.removeFromCache(key: url!)
-        cloudinarySecured.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
+        /// remove from cache and re-download - image should be different
+        cloudinaryObject.removeFromCache(key: url!)
+        cloudinaryObject.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
             responseCached = responseImage
-            error = errorRes
 
             expectation.fulfill()
         })
@@ -130,15 +171,24 @@ class DownloaderTests: NetworkBaseTest {
         waitForExpectations(timeout: timeout, handler: nil)
 
         XCTAssertNotEqual(response, responseCached, "Images should be differet because image was removed from cache")
-
-
-        //Test without cache
+    }
+    func downloadImageWithoutCache_shouldNotCacheImage(cloudinaryObject: CLDCloudinary) {
+       
+        XCTAssertNotNil(cloudinaryObject.config.apiSecret, "Must set api secret for this test")
         
-        cloudinarySecured.cacheMaxMemoryTotalCost = 20
-        cloudinarySecured.cacheMaxDiskCapacity = 20
+        // Given
+        var publicId: String?
+        var response: UIImage?
+        var error: NSError?
+        var responseCached: UIImage?
         
-        expectation = self.expectation(description: "Upload should succeed")
+        cloudinaryObject.cacheMaxMemoryTotalCost = 20
+        cloudinaryObject.cacheMaxDiskCapacity    = 20
         
+        // When
+        var expectation = self.expectation(description: "Upload should succeed")
+        
+        /// upload file to get publicId
         uploadFile().response({ (result, error) in
             XCTAssertNil(error)
             publicId = result?.publicId
@@ -147,11 +197,17 @@ class DownloaderTests: NetworkBaseTest {
         
         waitForExpectations(timeout: timeout, handler: nil)
         
+        guard let pubId = publicId else {
+            XCTFail("Public ID should not be nil at this point")
+            return
+        }
+        
         expectation = self.expectation(description: "Download should succeed")
         
-        url = cloudinarySecured!.createUrl().generate(pubId)
+        let url = cloudinaryObject.createUrl().generate(pubId)
         
-        cloudinarySecured.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
+        /// download image that will not get cached due to low capacity
+        cloudinaryObject.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
             response = responseImage
             error = errorRes
             
@@ -162,7 +218,8 @@ class DownloaderTests: NetworkBaseTest {
         
         expectation = self.expectation(description: "Download should succeed")
         
-        cloudinarySecured.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
+        /// download again (should not get the image from cache due to low capacity)
+        cloudinaryObject.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
             responseCached = responseImage
             error = errorRes
             
@@ -171,9 +228,10 @@ class DownloaderTests: NetworkBaseTest {
         
         waitForExpectations(timeout: timeout, handler: nil)
         
-        XCTAssertNotEqual(response, responseCached, "Images should be not same because size of cache very small")
+        // Then
+        XCTAssertNotEqual(response, responseCached, "Images should be not same because the size of the cache is too small")
         
-        cloudinarySecured.cacheMaxDiskCapacity = 150 * 1024 * 1024
+        cloudinaryObject.cacheMaxDiskCapacity = 150 * 1024 * 1024
         
         XCTAssertNotNil(response, "response should not be nil")
         XCTAssertNil(error, "error should be nil")

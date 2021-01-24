@@ -116,7 +116,6 @@
 		CDA2F1E6FC611B17A124B49A55CB2DBD /* UIView+Cloudinary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2F3BF8FFC64F6D428C6DC88FD68BE6 /* UIView+Cloudinary.swift */; };
 		D45322117DBC4BA167160EA9929B0768 /* CLDNResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00B2C4AF7BCDAF616DAF5514AA07484 /* CLDNResult.swift */; };
 		D78912E6E51C3C0F44CF988D5377DFDB /* CLDVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A3A6F2113C7BE9E26754C01ECB768D /* CLDVariable.swift */; };
-		D7AB31D225B7162F00135A19 /* CLDDownloadCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AB31D125B7162F00135A19 /* CLDDownloadCoordinator.swift */; };
 		D7AF1E7B25A4B88B00C75666 /* StorehouseConfigurationInMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1E5E25A4B88B00C75666 /* StorehouseConfigurationInMemory.swift */; };
 		D7AF1E7C25A4B88B00C75666 /* StorehouseConfigurationAutoPurging.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1E5F25A4B88B00C75666 /* StorehouseConfigurationAutoPurging.swift */; };
 		D7AF1E7D25A4B88B00C75666 /* StorehouseConfigurationDisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF1E6025A4B88B00C75666 /* StorehouseConfigurationDisk.swift */; };
@@ -318,7 +317,6 @@
 		D37EA0152F6D1C96DBA9B19B3303469D /* CLDRenameRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDRenameRequest.swift; sourceTree = "<group>"; };
 		D580967814961D109DCBB1BB9BA7C8A8 /* CLDErrorRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDErrorRequest.swift; sourceTree = "<group>"; };
 		D5E4AEA11041F05F723B1D5C1E3B5F81 /* CLDOcrWordResult.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDOcrWordResult.swift; sourceTree = "<group>"; };
-		D7AB31D125B7162F00135A19 /* CLDDownloadCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLDDownloadCoordinator.swift; sourceTree = "<group>"; };
 		D7AF1E5E25A4B88B00C75666 /* StorehouseConfigurationInMemory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorehouseConfigurationInMemory.swift; sourceTree = "<group>"; };
 		D7AF1E5F25A4B88B00C75666 /* StorehouseConfigurationAutoPurging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorehouseConfigurationAutoPurging.swift; sourceTree = "<group>"; };
 		D7AF1E6025A4B88B00C75666 /* StorehouseConfigurationDisk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorehouseConfigurationDisk.swift; sourceTree = "<group>"; };
@@ -459,7 +457,6 @@
 			children = (
 				78278932D48AEAD545A1AF2C2A28BD58 /* CLDDefaultNetworkAdapter.swift */,
 				729A953F6BE2C10FF677728E4DD1D129 /* CLDNetworkCoordinator.swift */,
-				D7AB31D125B7162F00135A19 /* CLDDownloadCoordinator.swift */,
 				4D33C7C7443873911A8A7CE5AD82CC53 /* Adapter */,
 				E5890CC685BFD360CA0EE9FCE1A4ECA5 /* NetworkRequest */,
 			);
@@ -1285,7 +1282,6 @@
 				975BCB42067022B94773E9A81EBBD608 /* CLDMultiRequestParams.swift in Sources */,
 				83F8025A6125F113F2DA7753106E3F01 /* CLDMultiResult.swift in Sources */,
 				7B508CB31C7949076440A6154850D8E7 /* CLDNConvertible.swift in Sources */,
-				D7AB31D225B7162F00135A19 /* CLDDownloadCoordinator.swift in Sources */,
 				F95C7D9FF39799D6E01A91AECCA45AF1 /* CLDNError.swift in Sources */,
 				24588056AE15230ADAE36FECF8C9D84C /* CLDNetworkAdapter.swift in Sources */,
 				47EAB385E1E1218904A994478CE0AAD9 /* CLDNetworkCoordinator.swift in Sources */,
