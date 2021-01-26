@@ -39,13 +39,7 @@ internal class CLDNetworkCoordinator {
     
     // MARK: - Init
     
-    init(configuration: CLDConfiguration) {
-
-        config = configuration
-        self.networkAdapter = CLDDefaultNetworkAdapter(configuration: nil)
-    }
-    
-    init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter) {
+    init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter = CLDDefaultNetworkAdapter.sharedAdapter) {
         config = configuration
         self.networkAdapter = networkAdapter
     }
@@ -197,20 +191,7 @@ class CLDDownloadCoordinator: CLDNetworkCoordinator {
     
     var imageCache = CLDImageCache(name: Defines.cacheDefaultName)
     
-    override init(configuration: CLDConfiguration) {
-        // we need to use a different identifier then the regular networkAdapter's sessionConfiguration identifier
-        let sessionConfiguration: URLSessionConfiguration = {
-            let configuration = URLSessionConfiguration.background(withIdentifier: SessionProperties.identifier)
-            configuration.httpAdditionalHeaders = CLDNSessionManager.defaultHTTPHeaders
-            configuration.urlCache = CLDURLCache(memoryCapacity: 100_000_000, diskCapacity: 100_000_000, diskPath: "FeedImageDownloader",configuration:  CLDURLCacheConfiguration.defualt)
-            
-            return configuration
-        }()
-        
-        super.init(configuration: configuration, sessionConfiguration: sessionConfiguration)
-    }
-    
-    override init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter) {
+    override init(configuration: CLDConfiguration, networkAdapter: CLDNetworkAdapter = CLDDefaultNetworkAdapter.sharedDownloadAdapter) {
         super.init(configuration: configuration, networkAdapter: networkAdapter)
     }
 

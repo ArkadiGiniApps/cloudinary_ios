@@ -46,7 +46,6 @@ internal class CLDNSessionManager {
     internal static let `default`: CLDNSessionManager = {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = CLDNSessionManager.defaultHTTPHeaders
-
         return CLDNSessionManager(configuration: configuration)
     }()
 

@@ -24,7 +24,6 @@
 
 import Foundation
 
-
 internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
 
     init(configuration: URLSessionConfiguration? = nil) {
@@ -49,10 +48,27 @@ internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
 
     fileprivate let downloadQueue: OperationQueue = OperationQueue()
 
-    internal static let sharedNetworkDelegate = CLDDefaultNetworkAdapter()
-
+    internal static let sharedAdapter             = CLDDefaultNetworkAdapter()
+    
+    internal static let sharedDownloadAdapter: CLDDefaultNetworkAdapter = {
+        
+        let downloadConfiguration: URLSessionConfiguration = {
+            let configuration = URLSessionConfiguration.background(withIdentifier: DownloadSessionProperties.identifier)
+            configuration.httpAdditionalHeaders = CLDNSessionManager.defaultHTTPHeaders
+            let urlCache = CLDURLCache(memoryCapacity: 100_000_000, diskCapacity: 100_000_000, diskPath: "CloudinaryDownloader",configuration:  CLDURLCacheConfiguration.defualt)
+            configuration.urlCache = urlCache
+            
+            return configuration
+        }()
+        
+        return CLDDefaultNetworkAdapter(configuration: downloadConfiguration)
+    }()
+    
+    private struct DownloadSessionProperties {
+        static let identifier: String = "" + ".cloudinarySDKbackgroundDownloadSession"
+    }
+    
     // MARK: Features
-
     internal func cloudinaryRequest(_ url: String, headers: [String: String], parameters: [String: Any]) -> CLDNetworkDataRequest {
         let req: CLDNDataRequest = manager.request(url, method: .post, parameters: parameters, headers: headers)
         req.resume()
@@ -123,7 +139,6 @@ internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
     }
 
     // MARK: - Setters
-
     internal func setBackgroundCompletionHandler(_ newValue: (() -> ())?) {
         manager.backgroundCompletionHandler = newValue
     }
@@ -133,9 +148,7 @@ internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
     }
 
     // MARK: - Getters
-
     internal func getBackgroundCompletionHandler() -> (() -> ())? {
         return manager.backgroundCompletionHandler
     }
-
 }
