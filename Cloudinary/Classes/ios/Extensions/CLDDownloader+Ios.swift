@@ -28,4 +28,24 @@ extension CLDDownloader
            request.progress(progress)
            return request
        }
+    
+    /**
+    Asynchronously fetches a remote asset from the specified URL.
+    The asset is retrieved from the cache if it exists, otherwise its downloaded and cached.
+    
+    - parameter url:                    The asset URL to download.
+    - parameter progress:               The closure that is called periodically during the data transfer.
+    - parameter completionHandler:      The closure to be called once the request has finished, holding either the retrieved Data or an error.
+    
+    - returns:              A `CLDFetchAssetRequest` instance to be used to get the fetched image from, or to get the download progress or cancel the task.
+    */
+    @discardableResult
+    open func fetchAsset(_ url: String, _ progress: ((Progress) -> Void)? = nil, completionHandler: CLDAssetCompletionHandler? = nil) -> CLDFetchAssetRequest {
+        
+        let request = CLDFetchAssetRequestImpl(url: url, downloadCoordinator: downloadCoordinator)
+        request.fetchAsset()
+        request.responseAsset(completionHandler)
+        request.progress(progress)
+        return request
+    }
 }

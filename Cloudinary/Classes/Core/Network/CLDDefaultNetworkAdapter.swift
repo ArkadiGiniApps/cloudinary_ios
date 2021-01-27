@@ -40,10 +40,6 @@ internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
         manager.startRequestsImmediately = false
     }
 
-    private struct SessionProperties {
-        static let identifier: String = Bundle.main.bundleIdentifier ?? "" + ".cloudinarySDKbackgroundSession"
-    }
-
     fileprivate let manager: CLDNSessionManager
 
     fileprivate let downloadQueue: OperationQueue = OperationQueue()
@@ -52,17 +48,17 @@ internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
     
     internal static let sharedDownloadAdapter: CLDDefaultNetworkAdapter = {
         
-        let downloadConfiguration: URLSessionConfiguration = {
-            let configuration = URLSessionConfiguration.background(withIdentifier: DownloadSessionProperties.identifier)
-            configuration.httpAdditionalHeaders = CLDNSessionManager.defaultHTTPHeaders
-            let urlCache = CLDURLCache(memoryCapacity: 100_000_000, diskCapacity: 100_000_000, diskPath: "CloudinaryDownloader",configuration:  CLDURLCacheConfiguration.defualt)
-            configuration.urlCache = urlCache
-            
-            return configuration
-        }()
+        let downloadConfiguration = URLSessionConfiguration.background(withIdentifier: DownloadSessionProperties.identifier)
+        downloadConfiguration.httpAdditionalHeaders = CLDNSessionManager.defaultHTTPHeaders
+        let urlCache = CLDURLCache(memoryCapacity: 100_000_000, diskCapacity: 100_000_000, diskPath: "CloudinaryDownloader",configuration:  CLDURLCacheConfiguration.defualt)
+        downloadConfiguration.urlCache = urlCache
         
         return CLDDefaultNetworkAdapter(configuration: downloadConfiguration)
     }()
+    
+    private struct SessionProperties {
+        static let identifier: String = Bundle.main.bundleIdentifier ?? "" + ".cloudinarySDKbackgroundSession"
+    }
     
     private struct DownloadSessionProperties {
         static let identifier: String = "" + ".cloudinarySDKbackgroundDownloadSession"

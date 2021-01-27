@@ -137,7 +137,6 @@ extension DownloaderTests {
         let url = cloudinaryObject.createUrl().generate(pubId)
         cloudinaryObject.createDownloader().fetchImage(url!).responseImage({ (responseImage, errorRes) in
             response = responseImage
-            // ozzzzz this is where we dont get response. why?? 
             expectation.fulfill()
         })
         
@@ -235,5 +234,49 @@ extension DownloaderTests {
         
         XCTAssertNotNil(response, "response should not be nil")
         XCTAssertNil(error, "error should be nil")
+    }
+}
+
+// MARK: - assets
+extension DownloaderTests {
+
+    func test_downloadAsset_shouldDownloadAssetAsData() {
+        
+        XCTAssertNotNil(cloudinarySecured.config.apiSecret, "Must set api secret for this test")
+        
+        // Given
+        var expectation = self.expectation(description: "Upload should succeed")
+        let resource: TestResourceType = .borderCollie
+        var publicId: String?
+        
+        // When
+        /// upload file to get publicId
+        cloudinary!.createUploader().signedUpload(data: resource.data, params: nil).response({ (result, error) in
+            XCTAssertNil(error)
+            publicId = result?.publicId
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        guard let pubId = publicId else {
+            XCTFail("Public ID should not be nil at this point")
+            return
+        }
+        
+        expectation = self.expectation(description: "Download should succeed")
+        
+        var response: Data?
+        /// download image by publicId - first time, no cache yet
+        let url = cloudinarySecured.createUrl().generate(pubId)
+        cloudinarySecured.createDownloader().fetchAsset(url!).responseAsset { (responseData, err) in
+            response = responseData
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        // Then
+        XCTAssertEqual(response,resource.data, "uploaded data should be equal to downloaded data")
     }
 }

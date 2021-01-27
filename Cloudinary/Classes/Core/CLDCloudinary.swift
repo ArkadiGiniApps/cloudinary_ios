@@ -26,6 +26,7 @@ import Foundation
 import UIKit
 
 public typealias CLDCompletionHandler = (_ responseImage: UIImage?, _ error: NSError?) -> ()
+public typealias CLDAssetCompletionHandler = (_ responseImage: Data?, _ error: NSError?) -> ()
 public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ error: NSError?) -> ()
 
 @objcMembers open class CLDCloudinary: NSObject {
