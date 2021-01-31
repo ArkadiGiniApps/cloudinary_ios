@@ -240,9 +240,9 @@ extension DownloaderTests {
 // MARK: - assets
 extension DownloaderTests {
 
-    func test_downloadAsset_shouldDownloadAssetAsData() {
+    func test_downloadAsset_image_shouldDownloadAssetAsData() {
         
-        XCTAssertNotNil(cloudinarySecured.config.apiSecret, "Must set api secret for this test")
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
         
         // Given
         var expectation = self.expectation(description: "Upload should succeed")
@@ -268,8 +268,8 @@ extension DownloaderTests {
         
         var response: Data?
         /// download image by publicId - first time, no cache yet
-        let url = cloudinarySecured.createUrl().generate(pubId)
-        cloudinarySecured.createDownloader().fetchAsset(url!).responseAsset { (responseData, err) in
+        let url = cloudinary!.createUrl().generate(pubId)
+        cloudinary!.createDownloader().fetchAsset(url!).responseAsset { (responseData, err) in
             response = responseData
             expectation.fulfill()
         }
@@ -279,4 +279,84 @@ extension DownloaderTests {
         // Then
         XCTAssertEqual(response,resource.data, "uploaded data should be equal to downloaded data")
     }
+    func test_downloadAsset_pdf_shouldDownloadAssetAsData() {
+        
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+        
+        // Given
+        let resource: TestResourceType = .pdf
+        var publicId: String?
+        var expectation = self.expectation(description: "Upload should succeed")
+        
+        // When
+        uploadFile(.pdf).response({ (result, error) in
+            publicId = result?.publicId
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        guard let pubId = publicId else {
+            XCTFail("Public ID should not be nil at this point")
+            return
+        }
+        
+        expectation = self.expectation(description: "Download should succeed")
+        
+        var response: Data?
+        /// download asset by publicId
+        let url = cloudinary!.createUrl().generate(pubId)
+        cloudinary!.createDownloader().fetchAsset(url!).responseAsset { (responseData, err) in
+            response = responseData
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        // Then
+        XCTAssertEqual(response,resource.data, "uploaded data should be equal to downloaded data")
+    }
+    func test_downloadAsset_video_shouldDownloadAssetAsData() {
+        
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
+        
+        // Given
+        let resource: TestResourceType = .dog
+        var publicId: String?
+        var expectation = self.expectation(description: "Upload should succeed")
+        
+        let params = CLDUploadRequestParams()
+        params.setResourceType(.video)
+        
+        // When
+        uploadFile(.dog, params: params).response({ (result, error) in
+            publicId = result?.publicId
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: longTimeout, handler: nil)
+        
+        guard let pubId = publicId else {
+            XCTFail("Public ID should not be nil at this point")
+            return
+        }
+        
+        expectation = self.expectation(description: "Download should succeed")
+        
+        var response: Data?
+        
+        /// download asset by publicId
+        let url = cloudinary!.createUrl().setResourceType(.video).generate(pubId)
+        
+        cloudinary!.createDownloader().fetchAsset(url!).responseAsset { (responseData, err) in
+            response = responseData // ozzzzz - we currently getting nil response after about 20 seconds due to timeout - why the timeout is so low?
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        // Then
+        XCTAssertEqual(response,resource.data, "uploaded data should be equal to downloaded data")
+    }
 }
+

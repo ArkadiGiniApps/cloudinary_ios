@@ -127,6 +127,7 @@ internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
     }
 
     internal func downloadFromCloudinary(_ url: String) -> CLDFetchImageRequest {
+        
         let req = manager.request(url)
         downloadQueue.addOperation { () -> () in
             req.resume()
