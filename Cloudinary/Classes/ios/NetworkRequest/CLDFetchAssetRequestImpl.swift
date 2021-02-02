@@ -23,7 +23,6 @@
 //
 
 import Foundation
-import UIKit
 
 internal class CLDFetchAssetRequestImpl: CLDFetchAssetRequest {
     

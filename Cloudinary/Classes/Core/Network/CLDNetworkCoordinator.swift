@@ -199,7 +199,8 @@ class CLDDownloadCoordinator: CLDNetworkCoordinator {
         super.init(configuration: configuration, sessionConfiguration: sessionConfiguration)
     }
     
-    private struct SessionProperties {
-        static let identifier: String = "" + ".cloudinarySDKbackgroundDownloadSession"
+    // MARK: - cache
+    func removeAllCacheResponses() {
+        CLDDefaultNetworkAdapter.sharedDownloadAdapterUrlCache.removeAllCachedResponses()
     }
 }

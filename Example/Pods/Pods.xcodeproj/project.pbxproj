@@ -157,7 +157,7 @@
 		EC8B9883D78BC4B0AEFAAEC775AC5E6E /* CLDDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F1DB7419FDAAB53F87CE83FF84B771 /* CLDDetection.swift */; };
 		ED784DD5C849911A97D88C9831789FBB /* CLDOcrDataResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB124863E649F1AA807DABDEEEC3BF42 /* CLDOcrDataResult.swift */; };
 		EE21FFBB34B40F920F20505151F668A8 /* CLDNetworkUploadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5438DBFBB913E77751DA9EBD980BBC55 /* CLDNetworkUploadRequest.swift */; };
-		EE49B591633628F9C53A43C19B02F3A7 /* CLDDownloader+Ios.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED56FB510C31E52D579B92678F5051 /* CLDDownloader+Ios.swift */; };
+		EE49B591633628F9C53A43C19B02F3A7 /* ExtensionCLDDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3ED56FB510C31E52D579B92678F5051 /* ExtensionCLDDownloader.swift */; };
 		EF9BC93F91BE311B9026D9D447D2AF66 /* CLDCryptoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0DACCB2AA5CB6CE1887C47F9A5FE81 /* CLDCryptoUtils.swift */; };
 		F026AFDCEEB0B36B1FD491A807018432 /* CLDNSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B0CE1735F4FAB5648E48296C668FF3 /* CLDNSessionManager.swift */; };
 		F288ABD5CC5AA6F4F1BE0FBDC172BFC2 /* CLDRekognitionFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1386B881B35FBE3F81287E642D4625CB /* CLDRekognitionFace.swift */; };
@@ -292,7 +292,7 @@
 		A90FA5ED53D83B6F9DE1FE0F65C07838 /* CLDSubtitlesLayer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDSubtitlesLayer.swift; sourceTree = "<group>"; };
 		ADC9A1C27CA272800D6ED094C9B92D39 /* CLDDefinitions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDDefinitions.swift; sourceTree = "<group>"; };
 		B0FB7F2229D394EE4CA51F4B4298B400 /* CLDExplodeRequestParams.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDExplodeRequestParams.swift; sourceTree = "<group>"; };
-		B3ED56FB510C31E52D579B92678F5051 /* CLDDownloader+Ios.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "CLDDownloader+Ios.swift"; sourceTree = "<group>"; };
+		B3ED56FB510C31E52D579B92678F5051 /* ExtensionCLDDownloader.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ExtensionCLDDownloader.swift; sourceTree = "<group>"; };
 		B51155ACDCA5DEA9C39A47046BA6AE89 /* CLDNSessionDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDNSessionDelegate.swift; sourceTree = "<group>"; };
 		B56066D8C212EE3ACBF621E0B3FED1A0 /* CLDBaseResult.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDBaseResult.swift; sourceTree = "<group>"; };
 		B5960511978BAFA67429BD059AEA4EB3 /* CLDOcrBoundindBlockResult.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CLDOcrBoundindBlockResult.swift; sourceTree = "<group>"; };
@@ -437,7 +437,7 @@
 		033EEBD98F9A22EBB4CAACE1B75EAAAA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				B3ED56FB510C31E52D579B92678F5051 /* CLDDownloader+Ios.swift */,
+				B3ED56FB510C31E52D579B92678F5051 /* ExtensionCLDDownloader.swift */,
 				21C956945316D95BC7F2CA67DDCE1EC0 /* CLDTransformation+Ios.swift */,
 				4D3C4B52CD43B77CB63D1F20B32FC130 /* UIButton+Cloudinary.swift */,
 				1F133C86503117CA6596942876483321 /* UIImageView+Cloudinary.swift */,
@@ -1252,7 +1252,7 @@
 				8CE0B2F182FF1E826A989D71E43AD37C /* CLDDestroyRequestParams.swift in Sources */,
 				EC8B9883D78BC4B0AEFAAEC775AC5E6E /* CLDDetection.swift in Sources */,
 				650F6F191F6C4AFE2000667DDC0E905F /* CLDDictionaryUtils.swift in Sources */,
-				EE49B591633628F9C53A43C19B02F3A7 /* CLDDownloader+Ios.swift in Sources */,
+				EE49B591633628F9C53A43C19B02F3A7 /* ExtensionCLDDownloader.swift in Sources */,
 				18CFD8D5DDFC957FA0BDF30D80D85DA1 /* CLDDownloader.swift in Sources */,
 				B084597618A9BBA0137F79F7CB5EAD0B /* CLDEagerTransformation.swift in Sources */,
 				1817D06B5BF8B48EB435FF85062A73BC /* CLDError.swift in Sources */,

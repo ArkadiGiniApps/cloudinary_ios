@@ -31,7 +31,7 @@ internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
             manager = CLDNSessionManager(configuration: configuration)
         } else {
             let configuration: URLSessionConfiguration = {
-                let configuration = URLSessionConfiguration.background(withIdentifier: SessionProperties.identifier)
+                let configuration = URLSessionConfiguration.background(withIdentifier: SessionProperties.networkIdentifier)
                 configuration.httpAdditionalHeaders = CLDNSessionManager.defaultHTTPHeaders
                 return configuration
             }()
@@ -48,22 +48,25 @@ internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
     
     internal static let sharedDownloadAdapter: CLDDefaultNetworkAdapter = {
         
-        let downloadConfiguration = URLSessionConfiguration.background(withIdentifier: DownloadSessionProperties.identifier)
+        let downloadConfiguration = URLSessionConfiguration.background(withIdentifier: SessionProperties.downloadIdentifier)
         downloadConfiguration.httpAdditionalHeaders = CLDNSessionManager.defaultHTTPHeaders
-        let urlCache = CLDURLCache(memoryCapacity: 100_000_000, diskCapacity: 100_000_000, diskPath: "CloudinaryDownloader",configuration:  CLDURLCacheConfiguration.defualt)
+        let urlCache = sharedDownloadAdapterUrlCache
         downloadConfiguration.urlCache = urlCache
+        downloadConfiguration.requestCachePolicy = .returnCacheDataElseLoad
         
         return CLDDefaultNetworkAdapter(configuration: downloadConfiguration)
     }()
     
+    internal static let sharedDownloadAdapterUrlCache: CLDURLCache = {
+        
+        return CLDURLCache(memoryCapacity: 100_000_000, diskCapacity: 100_000_000, diskPath: "CloudinaryDownloader",configuration: CLDURLCacheConfiguration.defualt)
+    }()
+    
     private struct SessionProperties {
-        static let identifier: String = Bundle.main.bundleIdentifier ?? "" + ".cloudinarySDKbackgroundSession"
+        static let networkIdentifier: String = Bundle.main.bundleIdentifier ?? "" + ".cloudinarySDKbackgroundSession"
+        static let downloadIdentifier: String = "" + ".cloudinarySDKbackgroundDownloadSession"
     }
-    
-    private struct DownloadSessionProperties {
-        static let identifier: String = "" + ".cloudinarySDKbackgroundDownloadSession"
-    }
-    
+
     // MARK: Features
     internal func cloudinaryRequest(_ url: String, headers: [String: String], parameters: [String: Any]) -> CLDNetworkDataRequest {
         let req: CLDNDataRequest = manager.request(url, method: .post, parameters: parameters, headers: headers)

@@ -112,6 +112,13 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
     open func removeFromCache(key: String) {
         downloadCoordinator.imageCache.removeCacheImageForKey(key)
     }
+    
+    /**
+    Removes all assets from the response cache, both disk and memory.
+    */
+    open func removeAllCacheResponses() {
+        downloadCoordinator.removeAllCacheResponses()
+    }
 
     // MARK: - Init
 

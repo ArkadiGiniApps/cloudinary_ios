@@ -95,6 +95,7 @@
 		D724FFEC25384AEF002B31F3 /* ObjcQualityAnalysisUploadResultParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D724FFEB25384AEF002B31F3 /* ObjcQualityAnalysisUploadResultParserTests.m */; };
 		D724FFEE25384DBB002B31F3 /* ObjcQualityAnalysisExplicitResultParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D724FFED25384DBB002B31F3 /* ObjcQualityAnalysisExplicitResultParserTests.m */; };
 		D724FFF12538533B002B31F3 /* BaseMockProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D724FFF02538533B002B31F3 /* BaseMockProvider.swift */; };
+		D72F30BB25C97F6C00DBD4D2 /* DownloaderAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72F30BA25C97F6C00DBD4D2 /* DownloaderAssetTests.swift */; };
 		D73117582473D7A30051AAFC /* CLDExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D73117572473D7A30051AAFC /* CLDExpressionTests.m */; };
 		D731175A247415340051AAFC /* CLDConditionExpressionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D7311759247415340051AAFC /* CLDConditionExpressionTests.m */; };
 		D731175C24741FBE0051AAFC /* CLDTransformationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D731175B24741FBE0051AAFC /* CLDTransformationTests.m */; };
@@ -246,6 +247,7 @@
 		D724FFEB25384AEF002B31F3 /* ObjcQualityAnalysisUploadResultParserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjcQualityAnalysisUploadResultParserTests.m; sourceTree = "<group>"; };
 		D724FFED25384DBB002B31F3 /* ObjcQualityAnalysisExplicitResultParserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjcQualityAnalysisExplicitResultParserTests.m; sourceTree = "<group>"; };
 		D724FFF02538533B002B31F3 /* BaseMockProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMockProvider.swift; sourceTree = "<group>"; };
+		D72F30BA25C97F6C00DBD4D2 /* DownloaderAssetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloaderAssetTests.swift; sourceTree = "<group>"; };
 		D73117572473D7A30051AAFC /* CLDExpressionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDExpressionTests.m; sourceTree = "<group>"; };
 		D7311759247415340051AAFC /* CLDConditionExpressionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDConditionExpressionTests.m; sourceTree = "<group>"; };
 		D731175B24741FBE0051AAFC /* CLDTransformationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CLDTransformationTests.m; sourceTree = "<group>"; };
@@ -503,6 +505,7 @@
 				D73622B724910FDD0021E1D4 /* UploaderTests */,
 				274C6D2023FBAF5E0090BC40 /* ManagementApiTests.swift */,
 				274C6D2123FBAF5E0090BC40 /* DownloaderTests.swift */,
+				D72F30BA25C97F6C00DBD4D2 /* DownloaderAssetTests.swift */,
 			);
 			path = NetworkTests;
 			sourceTree = "<group>";
@@ -1136,6 +1139,7 @@
 				D724FFEE25384DBB002B31F3 /* ObjcQualityAnalysisExplicitResultParserTests.m in Sources */,
 				274C6D3423FBAF5E0090BC40 /* UIImageViewTests.swift in Sources */,
 				D731175A247415340051AAFC /* CLDConditionExpressionTests.m in Sources */,
+				D72F30BB25C97F6C00DBD4D2 /* DownloaderAssetTests.swift in Sources */,
 				272C51B5242B6C360093AB1B /* ParameterEncodingTests.swift in Sources */,
 				274C6D2F23FBAF5E0090BC40 /* FileUtilsTests.swift in Sources */,
 				D724FFE825383E57002B31F3 /* QualityAnalysisUploadResultParserTests.swift in Sources */,
