@@ -69,12 +69,12 @@ to use a custom network adapter you must implement the `CLDNetworkAdapter` proto
      
      - parameter url:           The URL of the file to download.
      
-     - returns:                 An instance implementing the protocol `CLDFetchImageRequest`,
+     - returns:                 An instance implementing the protocol `CLDNetworkDataRequest`,
                                 allowing the option to set a closure returning the fetched image when its available.
                                 The protocol also allows the options to add a progress closure that is called periodically during the download,
                                 as well as cancelling the request.
      */
-    func downloadFromCloudinary(_ url: String) -> CLDFetchImageRequest
+    func downloadFromCloudinary(_ url: String) -> CLDNetworkDataRequest
     
     // MARK: Setters
     

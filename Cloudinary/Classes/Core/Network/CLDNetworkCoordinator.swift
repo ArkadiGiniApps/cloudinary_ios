@@ -70,7 +70,7 @@ internal class CLDNetworkCoordinator {
         return networkAdapter.uploadToCloudinary(url, headers: headers, parameters: requestParams,  data: data)
     }
     
-    internal func download(_ url: String) -> CLDFetchImageRequest {
+    internal func download(_ url: String) -> CLDNetworkDataRequest {
         return networkAdapter.downloadFromCloudinary(url)
     }
     

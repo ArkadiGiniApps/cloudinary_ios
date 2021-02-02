@@ -229,9 +229,6 @@ extension DownloaderTests {
         
         // Then
         XCTAssertNotEqual(response, responseCached, "Images should be not same because the size of the cache is too small")
-        
-        cloudinaryObject.cacheMaxDiskCapacity = 150 * 1024 * 1024
-        
         XCTAssertNotNil(response, "response should not be nil")
         XCTAssertNil(error, "error should be nil")
     }
