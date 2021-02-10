@@ -52,6 +52,7 @@ extension HTTPURLResponse {
         struct FieldKey     : Equatable {
             
             static let cacheControl = FieldKey("Cache-Control")
+            static let contentType  = FieldKey("Content-Type")
             static let date         = FieldKey("Date")
             static let lastModified = FieldKey("Last-Modified")
             static let expires      = FieldKey("Expires")
@@ -78,6 +79,8 @@ extension HTTPURLResponse {
         
         /// MARK: - Computed Properties
         var cacheControl: CacheControl? { return value(for: .cacheControl).flatMap(CacheControl.init) }
+        
+        var contentType : String? { return value(for: .contentType) }
         
         var date         : Date? {
             

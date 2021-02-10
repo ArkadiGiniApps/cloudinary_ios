@@ -215,10 +215,10 @@ class CLDDownloadCoordinator: CLDNetworkCoordinator, CLDURLCacheDelegate {
     
     func shouldExclude(response: HTTPURLResponse, for urlCache: CLDURLCache) -> Bool {
     
-//        if let contentType = httpResponse.header.value(for: .contentType),
-//           contentType.contains("image") {
-//            return true
-//        }
+        if let contentType = response.cld_header.value(for: .contentType),
+           contentType.contains("image") {
+            return true
+        }
         
         return false
     }
