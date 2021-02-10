@@ -28,12 +28,6 @@ import Cloudinary
 
 // MARK: - assets
 class DownloaderAssetTests: NetworkBaseTest {
-
-    override func tearDown() {
-        
-        cloudinary!.removeAllCacheResponses()
-        super.tearDown()
-    }
     
     func test_downloadAsset_image_shouldDownloadAssetAsData() {
         
@@ -109,7 +103,7 @@ class DownloaderAssetTests: NetworkBaseTest {
         waitForExpectations(timeout: timeout, handler: nil)
         
         // Then
-        XCTAssertEqual(response,resource.data, "uploaded data should be equal to downloaded data")
+        XCTAssertEqual(response, resource.data, "uploaded data should be equal to downloaded data")
     }
     func test_downloadAsset_video_shouldDownloadAssetAsData() {
         

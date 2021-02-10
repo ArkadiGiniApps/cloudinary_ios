@@ -46,22 +46,6 @@ internal class CLDDefaultNetworkAdapter: NSObject, CLDNetworkAdapter {
 
     internal static let sharedAdapter             = CLDDefaultNetworkAdapter()
     
-    internal static let sharedDownloadAdapter: CLDDefaultNetworkAdapter = {
-        
-        let downloadConfiguration = URLSessionConfiguration.background(withIdentifier: SessionProperties.downloadIdentifier)
-        downloadConfiguration.httpAdditionalHeaders = CLDNSessionManager.defaultHTTPHeaders
-        let urlCache = sharedDownloadAdapterUrlCache
-        downloadConfiguration.urlCache = urlCache
-        downloadConfiguration.requestCachePolicy = .returnCacheDataElseLoad
-        
-        return CLDDefaultNetworkAdapter(configuration: downloadConfiguration)
-    }()
-    
-    internal static let sharedDownloadAdapterUrlCache: CLDURLCache = {
-        
-        return CLDURLCache(memoryCapacity: 100_000_000, diskCapacity: 100_000_000, diskPath: "CloudinaryDownloader",configuration: CLDURLCacheConfiguration.defualt)
-    }()
-    
     private struct SessionProperties {
         static let networkIdentifier: String = Bundle.main.bundleIdentifier ?? "" + ".cloudinarySDKbackgroundSession"
         static let downloadIdentifier: String = "" + ".cloudinarySDKbackgroundDownloadSession"
