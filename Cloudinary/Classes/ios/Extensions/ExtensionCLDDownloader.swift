@@ -40,9 +40,9 @@ extension CLDDownloader
     @discardableResult
     open func fetchImage(_ url: String, _ progress: ((Progress) -> Void)? = nil, completionHandler: CLDCompletionHandler? = nil) -> CLDFetchImageRequest {
         let request = CLDFetchImageRequestImpl(url: url, downloadCoordinator: downloadCoordinator)
-        request.fetchImage()
         request.responseImage(completionHandler)
         request.progress(progress)
+        request.fetchImage()
         return request
     }
     
@@ -60,9 +60,9 @@ extension CLDDownloader
     open func fetchAsset(_ url: String, _ progress: ((Progress) -> Void)? = nil, completionHandler: CLDAssetCompletionHandler? = nil) -> CLDFetchAssetRequest {
         
         let request = CLDFetchAssetRequestImpl(url: url, downloadCoordinator: downloadCoordinator)
-        request.fetchAsset()
         request.responseAsset(completionHandler)
         request.progress(progress)
+        request.fetchAsset()
         return request
     }
 }
