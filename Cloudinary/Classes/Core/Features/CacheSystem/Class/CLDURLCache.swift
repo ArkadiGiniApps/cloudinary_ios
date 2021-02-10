@@ -107,19 +107,19 @@ public final class CLDURLCache : URLCache
     public override func cachedResponse(for request: URLRequest) -> CachedURLResponse?
     {
         guard let urlObject = request.url else {
-            cld_print("CLDURLCache cannot extract CachedURLResponse for nil URLs")
+            printLog(.debug, text: "CLDURLCache cannot extract CachedURLResponse for nil URLs")
             return nil
         }
         let absoluteURLString = urlObject.absoluteString
         
         guard !absoluteURLString.isEmpty else {
-            cld_print("CLDURLCache cannot extract CachedURLResponse for empty URLs")
+            printLog(.debug, text: "CLDURLCache cannot extract CachedURLResponse for empty URLs")
             return nil
         }
         
         //is caching allowed
         guard request.cachePolicy != .reloadIgnoringLocalCacheData else {
-            cld_print("CLDURLCache cannot extract CachedURLResponse for this cache policy: \(request.cachePolicy)")
+            printLog(.debug, text: "CLDURLCache cannot extract CachedURLResponse for this cache policy: \(request.cachePolicy)")
             return nil
         }
         
@@ -128,7 +128,7 @@ public final class CLDURLCache : URLCache
             entry = try warehouse.entry(forKey: absoluteURLString)
         }
         catch let error as NSError {
-            cld_print("CLDURLCache cannot read StorehouseEntry<CachedURLResponse> from storage. Error: \(error.debugDescription)")
+            printLog(.debug, text: "CLDURLCache cannot read StorehouseEntry<CachedURLResponse> from storage. Error: \(error.debugDescription)")
         }
         
         guard let responseEntry = entry else { return nil }
@@ -137,7 +137,7 @@ public final class CLDURLCache : URLCache
         if networkAvailable() && responseEntry.expiry.isExpired
         {
             let maxAge = request.value(forHTTPHeaderField: "Access-Control-Max-Age") ?? String(settings.maxCacheResponseAge)
-            cld_print("CLDURLCache cannot read item, older than \(maxAge) seconds")
+            printLog(.debug, text: "CLDURLCache cannot read item, older than \(maxAge) seconds")
         }
         
         let response = responseEntry.object
@@ -149,7 +149,7 @@ public final class CLDURLCache : URLCache
             {
                 if let redirectTo = HTTPURLResponse.allHeaderFields["Location"] as? String , let redirectURL = URL(string: redirectTo) {
                     
-                    cld_print("Redirecting from: \(response.response.url?.absoluteString ?? "")\nto: \(redirectTo)")
+                    printLog(.debug, text: "Redirecting from: \(response.response.url?.absoluteString ?? "")\nto: \(redirectTo)")
                     
                     // returning the response of the redirected url
                     let redirectRequest = URLRequest(url: redirectURL, cachePolicy: request.cachePolicy, timeoutInterval: request.timeoutInterval)
@@ -213,7 +213,7 @@ public final class CLDURLCache : URLCache
         
         if httpStatus.isClientError || httpStatus.isServerError
         {
-            cld_print("CLDURLCache Do not cache error \(httpResponse.statusCode) page for : \(String(describing: requestObject.url)) \(httpResponse.debugDescription)")
+            printLog(.debug, text: "CLDURLCache Do not cache error \(httpResponse.statusCode) page for : \(String(describing: requestObject.url)) \(httpResponse.debugDescription)")
             return
         }
         
@@ -227,7 +227,7 @@ public final class CLDURLCache : URLCache
             try warehouse.setObject(cachedResponse, forKey: urlObject.absoluteString, expiry: .date(expiration))
         }
         catch let error as NSError {
-            cld_print("Error \(error.debugDescription)")
+            printLog(.error, text: "Error \(error.debugDescription)")
         }
     }
     
@@ -241,7 +241,7 @@ public final class CLDURLCache : URLCache
             try warehouse.removeObject(forKey: urlObject.absoluteString)
         }
         catch let error as NSError {
-            cld_print("Error \(error.debugDescription)")
+            printLog(.error, text: "Error \(error.debugDescription)")
         }
     }
     
@@ -254,7 +254,7 @@ public final class CLDURLCache : URLCache
             try warehouse.removeAll()
         }
         catch let error as NSError {
-            cld_print("Error \(error.debugDescription)")
+            printLog(.error, text: "Error \(error.debugDescription)")
         }
     }
     
@@ -267,7 +267,7 @@ public final class CLDURLCache : URLCache
             try warehouse.removeStoredObjects(since: date)
         }
         catch let error as NSError {
-            cld_print("Error \(error.debugDescription)")
+            printLog(.error, text: "Error \(error.debugDescription)")
         }
     }
     
@@ -315,21 +315,5 @@ public final class CLDURLCache : URLCache
     fileprivate func networkAvailable() -> Bool
     {
         return delegate?.networkAvailable?(for: self) ?? true
-    }
-}
-
-/// MARK: - Loging
-extension CLDURLCache {
-    
-    private func cld_print(_ text: String) {
-        
-        switch settings.logingScope {
-        case .all:
-            print(text)
-        case .debugOnly:
-            debugPrint(text)
-        case .none:
-            break
-        }
     }
 }
