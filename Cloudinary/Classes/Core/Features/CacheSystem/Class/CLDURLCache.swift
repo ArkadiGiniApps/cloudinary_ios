@@ -1,7 +1,7 @@
 //
 //  CLDURLCache.swift
 //
-//  Copyright (c) 2020 Cloudinary (http://cloudinary.com)
+//  Copyright (c) 2021 Cloudinary (http://cloudinary.com)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,7 @@ public final class CLDURLCache : URLCache
     /// MARK: - Private properties
     fileprivate var warehouse : Warehouse<CachedURLResponse>!
     fileprivate var settings  : CLDURLCacheConfiguration!
+    fileprivate var path      : String?
     public weak var delegate  : CLDURLCacheDelegate?
     
     fileprivate var shouldReceateCacheResponse = false
@@ -45,35 +46,11 @@ public final class CLDURLCache : URLCache
     public init(memoryCapacity: Int, diskCapacity: Int, diskPath path: String?, configuration settings: CLDURLCacheConfiguration = CLDURLCacheConfiguration.defualt)
     {
         self.settings = settings
+        self.path     = path
         
         super.init(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: path)
         
-        let pathString : String
-        switch path {
-        case .none          : pathString = String()
-        case .some(let path): pathString = path
-        }
-        
-        let maxTimeFrom1970 = Date(timeIntervalSinceNow: settings.maxCacheResponseAge).timeIntervalSince1970
-        let expiry = StorehouseExpiry.secondsFrom1970(maxTimeFrom1970)
-        
-        let preferredCapacity = Int(floor(Double(memoryCapacity) * 0.7))
-        
-        let purging = StorehouseConfigurationAutoPurging(expiry: expiry,
-                                                         memory: memoryCapacity,
-                                                         preferredMemoryUsageAfterPurge: preferredCapacity)
-        
-        let disk    = StorehouseConfigurationDisk(name: pathString,
-                                                  expiry: expiry,
-                                                  maxSize: diskCapacity,
-                                                  protectionType: nil)
-        
-        let transformer : StorehouseTransformer<CachedURLResponse>
-        switch settings.securedStorage {
-        case true : transformer = WarehouseTransformerFactory.forSecuredCoding(ofType: CachedURLResponse.self)
-        case false: transformer = WarehouseTransformerFactory.forCoding       (ofType: CachedURLResponse.self)
-        }
-        self.warehouse = try? Warehouse.init(purgingConfig: purging, diskConfig: disk, transformer: transformer)
+        handleWarehouse(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: path, configuration: settings)
     }
     
     internal override init(memoryCapacity: Int, diskCapacity: Int, diskPath path: String?)
@@ -100,6 +77,7 @@ public final class CLDURLCache : URLCache
     public override var currentDiskUsage   : Int {
         return warehouse.currentDiskUsage
     }
+    
     /// MARK: - Method Overrides
     ///
     ///
@@ -182,7 +160,7 @@ public final class CLDURLCache : URLCache
         }
         
         guard let httpResponse = cachedResponse.response as? HTTPURLResponse else { return }
-        guard let httpStatus   = httpResponse.cld_code                           else { return }
+        guard let httpStatus   = httpResponse.cld_code                       else { return }
         
         let shouldExclude = delegate?.shouldExclude?(response: httpResponse, for: self)
         guard shouldExclude == false else { return }
@@ -307,6 +285,63 @@ public final class CLDURLCache : URLCache
         let current   = Date()
         let threshold = current.addingTimeInterval(-settings.minCacheResponseAge)
         removeCachedResponses(since: threshold)
+    }
+    
+    ///
+    ///
+    ///
+    internal func updateDiskCapacity(_ newDiskCapacity: Int) {
+        handleWarehouse(memoryCapacity: memoryCapacity, diskCapacity: newDiskCapacity, diskPath: path, configuration: self.settings, onlyUpdate: true)
+    }
+
+    ///
+    ///
+    ///
+    internal func updateMemoryCapacity(_ newMemoryCapacity: Int) {
+        handleWarehouse(memoryCapacity: newMemoryCapacity, diskCapacity: diskCapacity, diskPath: path, configuration: self.settings, onlyUpdate: true)
+    }
+}
+
+// MARK: - private methods
+extension CLDURLCache {
+    
+    ///
+    /// Create or update Warehouse object
+    ///
+    fileprivate func handleWarehouse(memoryCapacity: Int, diskCapacity: Int, diskPath path: String?, configuration settings: CLDURLCacheConfiguration = CLDURLCacheConfiguration.defualt, onlyUpdate: Bool = false) {
+        
+        let pathString : String
+        switch path {
+        case .none          : pathString = String()
+        case .some(let path): pathString = path
+        }
+        
+        let maxTimeFrom1970 = Date(timeIntervalSinceNow: settings.maxCacheResponseAge).timeIntervalSince1970
+        let expiry = StorehouseExpiry.secondsFrom1970(maxTimeFrom1970)
+        
+        let preferredCapacity = Int(floor(Double(memoryCapacity) * 0.7))
+        
+        let purgingConfiguration = StorehouseConfigurationAutoPurging(expiry: expiry,
+                                                         memory: memoryCapacity,
+                                                         preferredMemoryUsageAfterPurge: preferredCapacity)
+        
+        let diskConfiguration    = StorehouseConfigurationDisk(name: pathString,
+                                                  expiry: expiry,
+                                                  maxSize: diskCapacity,
+                                                  protectionType: nil)
+        
+        let transformer : StorehouseTransformer<CachedURLResponse>
+        switch settings.securedStorage {
+        case true : transformer = WarehouseTransformerFactory.forSecuredCoding(ofType: CachedURLResponse.self)
+        case false: transformer = WarehouseTransformerFactory.forCoding       (ofType: CachedURLResponse.self)
+        }
+        
+        if onlyUpdate {
+            try? self.warehouse.updateCacheCapacity(purgingConfig: purgingConfiguration, diskConfig: diskConfiguration, transformer: transformer)
+        }
+        else {
+            self.warehouse = try? Warehouse(purgingConfig: purgingConfiguration, diskConfig: diskConfiguration, transformer: transformer)
+        }
     }
     
     ///

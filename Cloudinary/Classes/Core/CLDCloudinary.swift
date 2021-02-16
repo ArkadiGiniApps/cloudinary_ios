@@ -87,6 +87,7 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
         }
         set {
             downloadCoordinator.imageCache.maxDiskCapacity = newValue
+            downloadCoordinator.urlCache.updateDiskCapacity(Int(newValue))
         }
     }
 
@@ -100,6 +101,7 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
         }
         set {
             downloadCoordinator.imageCache.maxMemoryTotalCost = newValue
+            downloadCoordinator.urlCache.updateMemoryCapacity(newValue)
         }
     }
 

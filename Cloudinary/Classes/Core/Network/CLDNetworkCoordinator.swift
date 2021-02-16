@@ -190,10 +190,10 @@ internal class CLDNetworkCoordinator: NSObject {
 class CLDDownloadCoordinator: CLDNetworkCoordinator, CLDURLCacheDelegate {
 
     let imageCache = CLDImageCache(name: Defines.cacheDefaultName)
-    let urlCache   = CLDURLCache(memoryCapacity: 100_000_000, diskCapacity: 100_000_000, diskPath: Defines.cacheAssetDefaultName, configuration: CLDURLCacheConfiguration.defualt)
-
+    let urlCache   = CLDURLCache(memoryCapacity: Defines.defaultMemoryTotalCostLimit, diskCapacity: Defines.defaultMaxDiskCapacity, diskPath: Defines.cacheAssetDefaultName, configuration: CLDURLCacheConfiguration.defualt)
+    
     init(configuration: CLDConfiguration) {
-        
+
         let downloadConfiguration                   = URLSessionConfiguration.default
         downloadConfiguration.httpAdditionalHeaders = CLDNSessionManager.defaultHTTPHeaders
         downloadConfiguration.urlCache              = urlCache

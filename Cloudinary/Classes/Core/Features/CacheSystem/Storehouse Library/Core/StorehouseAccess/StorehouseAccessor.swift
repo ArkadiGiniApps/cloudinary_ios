@@ -33,7 +33,7 @@ public class StorehouseAccessor<StoredItem>
     public typealias Item = StoredItem
     
     /// MARK: - Public Properties
-    public let storehouse  : StorehouseHybrid<Item>
+    public var storehouse  : StorehouseHybrid<Item>
     public let accessQueue : DispatchQueue
     
     public var memoryCapacity : Int {
@@ -65,6 +65,13 @@ public class StorehouseAccessor<StoredItem>
     {
         self.storehouse  = storage
         self.accessQueue = queue
+    }
+    
+    internal func replaceStorage(_ storage: StorehouseHybrid<Item>)
+    {
+        accessQueue.sync(flags: [.barrier]) {
+            self.storehouse = storage
+        }
     }
 }
 extension StorehouseAccessor : StorehouseProtocol

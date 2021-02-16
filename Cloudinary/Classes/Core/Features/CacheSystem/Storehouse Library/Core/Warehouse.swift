@@ -100,7 +100,17 @@ public final class Warehouse<SoredType>
         self.storehouse = storage
         self.accessor   = StorehouseAccessor(storage: storage, queue: queue)
     }
+    
+    internal func updateCacheCapacity(purgingConfig: StorehouseConfigurationAutoPurging, diskConfig: StorehouseConfigurationDisk, transformer: StorehouseTransformer<Item>) throws {
+        
+        let disk    = try StorehouseOnDisk (configuration:    diskConfig, transformer: transformer)
+        let memory  = StorehouseAutoPurging(configuration: purgingConfig, transformer: transformer)
+        let storage = StorehouseHybrid(inMemory: memory, onDisk: disk)
+        
+        accessor.replaceStorage(storage)
+    }
 }
+
 extension Warehouse : StorehouseProtocol
 {
     @discardableResult

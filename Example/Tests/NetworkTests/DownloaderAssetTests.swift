@@ -29,7 +29,7 @@ import Cloudinary
 // MARK: - assets
 class DownloaderAssetTests: NetworkBaseTest {
     
-    func test_downloadAsset_image_shouldDownloadAssetAsData() {
+    func test_downloadAsset_asset_shouldDownloadAssetAsData() {
         
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
         
@@ -56,7 +56,7 @@ class DownloaderAssetTests: NetworkBaseTest {
         expectation = self.expectation(description: "Download should succeed")
         
         var response: Data?
-        /// download image by publicId - first time, no cache yet
+        /// download asset by publicId - first time, no cache yet
         let url = cloudinary!.createUrl().generate(pubId)
         cloudinary!.createDownloader().fetchAsset(url!).responseAsset { (responseData, err) in
             response = responseData
@@ -151,6 +151,10 @@ class DownloaderAssetTests: NetworkBaseTest {
     func test_downloadAsset_cache_shouldGetAssetFromCache() {
         downloadAssetWithCache_shouldCacheAsset(cloudinaryObject: cloudinary!)
     }
+    
+    func test_downloadAsset_noCache_shouldGetAssetFromCache() {
+        downloadAssetWithoutCache_shouldNotCacheAsset(cloudinaryObject: cloudinary!)
+    }
 }
 
 // MARK: - cache
@@ -165,7 +169,7 @@ extension DownloaderAssetTests {
         
         /// upload file to get publicId
         var publicId: String?
-        uploadFile().response({ (result, error) in
+        uploadFile(.pdf).response({ (result, error) in
             XCTAssertNil(error)
             publicId = result?.publicId
             expectation.fulfill()
@@ -201,5 +205,67 @@ extension DownloaderAssetTests {
         
         // Then
         XCTAssertEqual(response, responseCached, "data should be equal because it is the data we cached")
+    }
+    
+    func downloadAssetWithoutCache_shouldNotCacheAsset(cloudinaryObject: CLDCloudinary) {
+       
+        XCTAssertNotNil(cloudinaryObject.config.apiSecret, "Must set api secret for this test")
+        
+        // Given
+        var publicId: String?
+        var response: Data?
+        var error: NSError?
+        var responseCached: Data?
+        
+        cloudinaryObject.cacheMaxMemoryTotalCost = 20
+        cloudinaryObject.cacheMaxDiskCapacity    = 20
+        
+        // When
+        var expectation = self.expectation(description: "Upload should succeed")
+        
+        /// upload file to get publicId
+        uploadFile(.pdf).response({ (result, error) in
+            XCTAssertNil(error)
+            publicId = result?.publicId
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        guard let pubId = publicId else {
+            XCTFail("Public ID should not be nil at this point")
+            return
+        }
+        
+        expectation = self.expectation(description: "Download should succeed")
+        
+        let url = cloudinaryObject.createUrl().generate(pubId)
+        
+        /// download asset that will not get cached due to low capacity
+        cloudinaryObject.createDownloader().fetchAsset(url!).responseAsset({ (responseAsset, errorRes) in
+            response = responseAsset
+            error = errorRes
+            
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        expectation = self.expectation(description: "Download should succeed")
+        
+        /// download again (should not get the asset from cache due to low capacity)
+        cloudinaryObject.createDownloader().fetchAsset(url!).responseAsset({ (responseAsset, errorRes) in
+            responseCached = responseAsset
+            error = errorRes
+            
+            expectation.fulfill()
+        })
+
+        waitForExpectations(timeout: timeout, handler: nil)
+        
+        // Then
+        XCTAssertNotEqual(response, responseCached, "Assets should be not same because the size of the cache is too small")
+        XCTAssertNotNil(response, "response should not be nil")
+        XCTAssertNil(error, "error should be nil")
     }
 }
