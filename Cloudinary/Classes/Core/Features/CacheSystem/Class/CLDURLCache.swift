@@ -35,8 +35,8 @@ public protocol CLDURLCacheDelegate : NSObjectProtocol {
 public final class CLDURLCache : URLCache
 {
     /// MARK: - Private properties
-    fileprivate var warehouse : Warehouse<CachedURLResponse>!
-    fileprivate var settings  : CLDURLCacheConfiguration!
+    internal fileprivate(set) var warehouse : Warehouse<CachedURLResponse>!
+    internal fileprivate(set) var settings  : CLDURLCacheConfiguration!
     fileprivate var path      : String?
     public weak var delegate  : CLDURLCacheDelegate?
     
@@ -178,15 +178,15 @@ public final class CLDURLCache : URLCache
             guard let _ = httpResponse.cld_header.etag    else { break }
             guard let expirationDate = expirationDate else {
                 // This response is not cacheable, headers said
-                return;
+                return
             }
             
             guard expirationDate.timeIntervalSinceNow - settings.expirationDelayMinimum > 0 else {
                 // This response is not cacheable, headers said
-                return;
+                return
             }
             
-        default: break
+        default: return
         }
         
         if httpStatus.isClientError || httpStatus.isServerError
@@ -203,6 +203,7 @@ public final class CLDURLCache : URLCache
         guard let urlObject = requestObject.url , let expiration = expirationDate else { return }
         do {
             try warehouse.setObject(cachedResponse, forKey: urlObject.absoluteString, expiry: .date(expiration))
+            try warehouse.removeExpiredObjects()
         }
         catch let error as NSError {
             printLog(.error, text: "Error \(error.debugDescription)")

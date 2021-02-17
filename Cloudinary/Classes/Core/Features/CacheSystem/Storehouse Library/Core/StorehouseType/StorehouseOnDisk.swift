@@ -310,8 +310,6 @@ final public class StorehouseOnDisk<StoredItem>: StorehouseAnyFileSystem<StoredI
         
         _ = fileManager.createFile(atPath: filePath, contents: data, attributes: nil)
         try fileManager.setAttributes([.modificationDate: expiry.date], ofItemAtPath: filePath)
-        
-        try removeExpiredObjects()
     }
     
     public override func removeAll() throws
