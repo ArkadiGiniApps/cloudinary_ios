@@ -192,6 +192,10 @@ public final class StorehouseAutoPurging<StoredItem> : StorehouseAnyInMemory<Sto
     ///
     fileprivate func removeObjectIfExpired(forKey key: String, since date: Date) throws
     {
+        guard synchronizationQueue.sync(flags: [.barrier], execute: {
+            !cachedMemoryCapsules.isEmpty
+        }) else { return }
+        
         let identifier = key
         
         var capsule : StorehouseAutoPurging<Item>.MemoryCapsule?

@@ -87,7 +87,6 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
         }
         set {
             downloadCoordinator.imageCache.maxDiskCapacity = newValue
-            downloadCoordinator.urlCache.updateDiskCapacity(Int(newValue))
         }
     }
 
@@ -101,10 +100,35 @@ public typealias CLDUploadCompletionHandler = (_ response: CLDUploadResult?, _ e
         }
         set {
             downloadCoordinator.imageCache.maxMemoryTotalCost = newValue
-            downloadCoordinator.urlCache.updateMemoryCapacity(newValue)
         }
     }
 
+    /**
+     Sets Cloudinary SDK's asset cache maximum disk capacity.
+     default is 150 MB.
+     */
+    open var cacheAssetMaxDiskCapacity: Int {
+        get {
+            return downloadCoordinator.urlCache.diskCapacity
+        }
+        set {
+            downloadCoordinator.urlCache.updateDiskCapacity(newValue)
+        }
+    }
+
+    /**
+     Sets Cloudinary SDK's asset cache maximum memory total cost.
+     default is 30 MB.
+     */
+    open var cacheAssetMaxMemoryTotalCost: Int {
+        get {
+            return downloadCoordinator.urlCache.memoryCapacity
+        }
+        set {
+            downloadCoordinator.urlCache.updateMemoryCapacity(newValue)
+        }
+    }
+    
     /**
     Removes an image from the downloaded images cache, both disk and memory.
 

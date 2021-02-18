@@ -147,22 +147,14 @@ class DownloaderAssetTests: NetworkBaseTest {
         // Then
         XCTAssertEqual(response, resource.data, "uploaded data should be equal to downloaded data")
     }
-    
-    func test_downloadAsset_cache_shouldGetAssetFromCache() {
-        downloadAssetWithCache_shouldCacheAsset(cloudinaryObject: cloudinary!)
-    }
-    
-    func test_downloadAsset_noCache_shouldGetAssetFromCache() {
-        downloadAssetWithoutCache_shouldNotCacheAsset(cloudinaryObject: cloudinary!)
-    }
 }
 
 // MARK: - cache
 extension DownloaderAssetTests {
     
-    func downloadAssetWithCache_shouldCacheAsset(cloudinaryObject: CLDCloudinary) {
+    func test_downloadAsset_cache_shouldGetAssetFromCache() {
         
-        XCTAssertNotNil(cloudinaryObject.config.apiSecret, "Must set api secret for this test")
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
         
         // When
         var expectation = self.expectation(description: "Upload should succeed")
@@ -186,44 +178,31 @@ extension DownloaderAssetTests {
         
         var response: Data?
         /// download asset by publicId - first time, no cache yet
-        let url = cloudinaryObject.createUrl().generate(pubId)
-        cloudinaryObject.createDownloader().fetchAsset(url!).responseAsset { (dataResponse, errResponse) in
+        let url = cloudinary!.createUrl().generate(pubId)
+        let downloader = cloudinary!.createDownloader()
+        downloader.fetchAsset(url!).responseAsset { (dataResponse, errResponse) in
             response = dataResponse
             expectation.fulfill()
         }
         waitForExpectations(timeout: timeout, handler: nil)
         
-        expectation = self.expectation(description: "Download should succeed")
-        var responseCached: Data?
-        
-        /// download asset by publicId - should get from cache so responses should be equal
-        cloudinaryObject.createDownloader().fetchAsset(url!).responseAsset { (dataResponse, errResponse) in
-            responseCached = dataResponse
-            expectation.fulfill()
-        }
-        waitForExpectations(timeout: timeout, handler: nil)
-        
         // Then
-        XCTAssertEqual(response, responseCached, "data should be equal because it is the data we cached")
+        XCTAssertNotNil(response, "response should be valid")
+        XCTAssertNotNil(try downloader.downloadCoordinator.urlCache.warehouse.entry(forKey: url!), "response should be cached")
     }
     
-    func downloadAssetWithoutCache_shouldNotCacheAsset(cloudinaryObject: CLDCloudinary) {
-       
-        XCTAssertNotNil(cloudinaryObject.config.apiSecret, "Must set api secret for this test")
+    func test_downloadAsset_noCache_shouldGetAssetFromCache() {
         
-        // Given
-        var publicId: String?
-        var response: Data?
-        var error: NSError?
-        var responseCached: Data?
+        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
         
-        cloudinaryObject.cacheMaxMemoryTotalCost = 20
-        cloudinaryObject.cacheMaxDiskCapacity    = 20
+        cloudinary!.cacheAssetMaxMemoryTotalCost = 20
+        cloudinary!.cacheAssetMaxDiskCapacity    = 20
         
         // When
         var expectation = self.expectation(description: "Upload should succeed")
         
         /// upload file to get publicId
+        var publicId: String?
         uploadFile(.pdf).response({ (result, error) in
             XCTAssertNil(error)
             publicId = result?.publicId
@@ -239,33 +218,18 @@ extension DownloaderAssetTests {
         
         expectation = self.expectation(description: "Download should succeed")
         
-        let url = cloudinaryObject.createUrl().generate(pubId)
-        
-        /// download asset that will not get cached due to low capacity
-        cloudinaryObject.createDownloader().fetchAsset(url!).responseAsset({ (responseAsset, errorRes) in
-            response = responseAsset
-            error = errorRes
-            
+        var response: Data?
+        /// download asset by publicId - first time, no cache yet
+        let url = cloudinary!.createUrl().generate(pubId)
+        let downloader = cloudinary!.createDownloader()
+        downloader.fetchAsset(url!).responseAsset { (dataResponse, errResponse) in
+            response = dataResponse
             expectation.fulfill()
-        })
-
-        waitForExpectations(timeout: timeout, handler: nil)
-        
-        expectation = self.expectation(description: "Download should succeed")
-        
-        /// download again (should not get the asset from cache due to low capacity)
-        cloudinaryObject.createDownloader().fetchAsset(url!).responseAsset({ (responseAsset, errorRes) in
-            responseCached = responseAsset
-            error = errorRes
-            
-            expectation.fulfill()
-        })
-
+        }
         waitForExpectations(timeout: timeout, handler: nil)
         
         // Then
-        XCTAssertNotEqual(response, responseCached, "Assets should be not same because the size of the cache is too small")
-        XCTAssertNotNil(response, "response should not be nil")
-        XCTAssertNil(error, "error should be nil")
+        XCTAssertNotNil(response, "response should be valid")
+        XCTAssertThrowsError(try downloader.downloadCoordinator.urlCache.warehouse.entry(forKey: url!), "response should not be cached due to low capacity, so when we try to get the cached object, error will be thrown")
     }
 }
