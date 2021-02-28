@@ -37,8 +37,8 @@ internal final class CLDURLCache : URLCache
     /// MARK: - Private properties
     internal fileprivate(set) var warehouse : Warehouse<CachedURLResponse>!
     internal fileprivate(set) var settings  : CLDURLCacheConfiguration!
-    fileprivate var path      : String?
-    internal weak var delegate  : CLDURLCacheDelegate?
+    fileprivate var path                    : String?
+    internal weak var delegate              : CLDURLCacheDelegate?
     
     fileprivate var shouldReceateCacheResponse = false
     
