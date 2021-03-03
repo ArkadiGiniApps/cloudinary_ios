@@ -45,7 +45,7 @@ class DownloaderAssetTests: NetworkBaseTest {
     }
     
     static var skipableTests = [
-        ("test_downloadAsset_pdf_shouldDownloadWithoutCaching", test_downloadAsset_pdf_shouldDownloadWithoutCaching),
+        ("test_downloadAsset_pdf_shouldDownloadAndCacheAsset", test_downloadAsset_pdf_shouldDownloadAndCacheAsset),
     ]
         
     override func shouldSkipTest() -> Bool {
@@ -66,187 +66,45 @@ class DownloaderAssetTests: NetworkBaseTest {
         return false
     }
     
-    func test_downloadAsset_image_shouldDownloadWithoutCaching() {
-        
-        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
-        // Given
-        var expectation = self.expectation(description: "Upload should succeed")
-        let resource: TestResourceType = .borderCollie
-        var publicId: String?
-        
-        // When
-        /// upload file to get publicId
-        uploadFile(resource).response({ (result, error) in
-            XCTAssertNil(error)
-            publicId = result?.publicId
-            expectation.fulfill()
-        })
-        
-        waitForExpectations(timeout: timeout, handler: nil)
-        
-        guard let pubId = publicId else {
-            XCTFail("Public ID should not be nil at this point")
-            return
-        }
-        
-        expectation = self.expectation(description: "test_downloadAsset_asset_shouldDownloadAssetAsData Download asset should succeed")
-        
-        var response: Data?
-        /// download asset by publicId - first time, no cache yet
-        let url = cloudinary!.createUrl().generate(pubId)
-        
-        sut.fetchAsset(url!).responseAsset { (responseData, err) in
-            response = responseData
-            expectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: timeout, handler: nil)
-        
-        // Then
-        XCTAssertEqual(response,resource.data, "uploaded data should be equal to downloaded data")
-        XCTAssertThrowsError(try sut.downloadCoordinator.urlCache.warehouse.entry(forKey: url!), "images should not be cached (we exclude them, users should use fetchImage)")
+    // MARK - cache asset
+    func test_downloadAsset_video_shouldDownloadAndCacheAsset() {
+        assetCacheTest(shouldCache: true, testResource: .dog2, resourceType: .video)
     }
-    func test_downloadAsset_video_shouldDownloadAndCacheVideo() {
-        
-        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
-        // Given
-        let resource: TestResourceType = .dog2
-        var publicId: String?
-        var expectation = self.expectation(description: "Upload should succeed")
-        
-        let params = CLDUploadRequestParams()
-        params.setResourceType(.video)
-        
-        // When
-        uploadFile(resource, params: params).response({ (result, error) in
-            publicId = result?.publicId
-            expectation.fulfill()
-        })
-        
-        waitForExpectations(timeout: longTimeout, handler: nil)
-        
-        guard let pubId = publicId else {
-            XCTFail("Public ID should not be nil at this point")
-            return
-        }
-        
-        expectation = self.expectation(description: "test_downloadAsset_video_shouldDownloadAssetAsData Download should succeed")
-        
-        var response: Data?
-        
-        /// download asset by publicId
-        let url = cloudinary!.createUrl().setResourceType(.video).generate(pubId)
-        sut.fetchAsset(url!).responseAsset { (responseData, err) in
-            response = responseData
-            expectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: timeout, handler: nil)
-        
-        // Then
-        XCTAssertEqual(response, resource.data, "uploaded data should be equal to downloaded data")
-        XCTAssertNotNil(try sut.downloadCoordinator.urlCache.warehouse.entry(forKey: url!), "response should be cached")
+    func test_downloadAsset_pdf_shouldDownloadAndCacheAsset() {
+        assetCacheTest(shouldCache: true, testResource: .pdf, resourceType: .raw)
     }
-    func test_downloadAsset_pdf_shouldDownloadWithoutCaching() {
-        
-        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
-        // Given
-        var expectation = self.expectation(description: "Upload should succeed")
-        let resource: TestResourceType = .pdf
-        var publicId: String?
-        
-        // When
-        /// upload file to get publicId
-        uploadFile(resource).response({ (result, error) in
-            XCTAssertNil(error)
-            publicId = result?.publicId
-            expectation.fulfill()
-        })
-        
-        waitForExpectations(timeout: timeout, handler: nil)
-        
-        guard let pubId = publicId else {
-            XCTFail("Public ID should not be nil at this point")
-            return
-        }
-        
-        expectation = self.expectation(description: "test_downloadAsset_asset_shouldDownloadAssetAsData Download asset should succeed")
-        
-        var response: Data?
-        /// download asset by publicId - first time, no cache yet
-        let url = cloudinary!.createUrl().generate(pubId)
-        
-        sut.fetchAsset(url!).responseAsset { (responseData, err) in
-            response = responseData
-            expectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: timeout, handler: nil)
-        
-        // Then
-        XCTAssertEqual(response,resource.data, "uploaded data should be equal to downloaded data")
-        XCTAssertNotNil(try sut.downloadCoordinator.urlCache.warehouse.entry(forKey: url!), "response should be cached")
-    }
-    func test_downloadAsset_docx_shouldDownloadWithoutCaching() {
-        
-        XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
-        
-        // Given
-        var expectation = self.expectation(description: "Upload should succeed")
-        let resource: TestResourceType = .docx
-        var publicId: String?
-        
-        let params = CLDUploadRequestParams()
-        params.setResourceType(.raw)
-        // When
-        /// upload file to get publicId
-        uploadFile(resource, params: params).response({ (result, error) in
-            XCTAssertNil(error)
-            publicId = result?.publicId
-            expectation.fulfill()
-        })
-        
-        waitForExpectations(timeout: timeout, handler: nil)
-        
-        guard let pubId = publicId else {
-            XCTFail("Public ID should not be nil at this point")
-            return
-        }
-        
-        expectation = self.expectation(description: "test_downloadAsset_asset_shouldDownloadAssetAsData Download asset should succeed")
-        
-        var response: Data?
-        /// download asset by publicId - first time, no cache yet
-        let url = cloudinary!.createUrl().setResourceType(.raw).generate(pubId)
-        sut.fetchAsset(url!).responseAsset { (responseData, err) in
-            response = responseData
-            expectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: timeout, handler: nil)
-        
-        // Then
-        XCTAssertEqual(response,resource.data, "uploaded data should be equal to downloaded data")
-        XCTAssertNotNil(try sut.downloadCoordinator.urlCache.warehouse.entry(forKey: url!), "response should be cached")
+    func test_downloadAsset_docx_shouldDownloadAndCacheAsset() {
+        assetCacheTest(shouldCache: true, testResource: .docx, resourceType: .raw)
     }
     
-    func test_downloadAsset_videoWithoutCache_shouldDownloadWithoutCaching() {
+    // MARK - download without cache
+    func test_downloadAsset_image_shouldDownloadWithoutCaching() {
+        // images are excluded from asset cache use "fetchImage" instead of "fetchAsset".
+        assetCacheTest(shouldCache: false,testResource: .borderCollie, resourceType: .image)
+    }
+    func test_downloadAsset_video_shouldDownloadWithoutCaching() {
+        assetCacheTest(shouldCache: false, testResource: .dog2, resourceType: .video)
+    }
+}
+
+extension DownloaderAssetTests {
+    
+    func assetCacheTest(shouldCache: Bool, testResource: TestResourceType, resourceType: CLDUrlResourceType) {
         
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")
         
-        cloudinary!.cacheAssetMaxMemoryTotalCost = 20
-        cloudinary!.cacheAssetMaxDiskCapacity    = 20
+        if !shouldCache {
+            cloudinary!.cacheAssetMaxMemoryTotalCost = 20
+            cloudinary!.cacheAssetMaxDiskCapacity    = 20
+        }
         
         // Given
-        let resource: TestResourceType = .dog2
+        let resource: TestResourceType = testResource
         var publicId: String?
         var expectation = self.expectation(description: "Upload should succeed")
         
         let params = CLDUploadRequestParams()
-        params.setResourceType(.video)
+        params.setResourceType(resourceType)
         
         // When
         uploadFile(resource, params: params).response({ (result, error) in
@@ -261,12 +119,12 @@ class DownloaderAssetTests: NetworkBaseTest {
             return
         }
         
-        expectation = self.expectation(description: "test_downloadAsset_video_shouldDownloadAssetAsData Download should succeed")
+        expectation = self.expectation(description: "Download should succeed")
         
         var response: Data?
         
         /// download asset by publicId
-        let url = cloudinary!.createUrl().setResourceType(.video).generate(pubId)
+        let url = cloudinary!.createUrl().setResourceType(resourceType).generate(pubId)
         sut.fetchAsset(url!).responseAsset { (responseData, err) in
             response = responseData
             expectation.fulfill()
@@ -276,6 +134,12 @@ class DownloaderAssetTests: NetworkBaseTest {
         
         // Then
         XCTAssertEqual(response, resource.data, "uploaded data should be equal to downloaded data")
-        XCTAssertThrowsError(try sut.downloadCoordinator.urlCache.warehouse.entry(forKey: url!), "response should be cached")
+        
+        if shouldCache {
+            XCTAssertNotNil(try sut.downloadCoordinator.urlCache.warehouse.entry(forKey: url!), "response should be cached")
+        }
+        else {
+            XCTAssertThrowsError(try sut.downloadCoordinator.urlCache.warehouse.entry(forKey: url!), "response should not be cached")
+        }
     }
 }
