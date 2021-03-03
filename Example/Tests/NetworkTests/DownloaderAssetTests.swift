@@ -29,6 +29,28 @@ import Cloudinary
 // MARK: - assets
 class DownloaderAssetTests: NetworkBaseTest {
     
+    static var skipableTests = [
+        ("test_downloadAsset_pdf_shouldDownloadAssetAsData", test_downloadAsset_pdf_shouldDownloadAssetAsData),
+    ]
+    
+    override func shouldSkipTest() -> Bool {
+        
+        if super.shouldSkipTest() {
+            return true
+        }
+        if ProcessInfo.processInfo.arguments.contains("TEST_PDF") {
+            return false
+        }
+        if let privateName = testRun?.test.name {
+            if !DownloaderAssetTests.skipableTests.filter({ (content) -> Bool in
+                return privateName.contains(content.0)
+            }).isEmpty {
+                return true
+            }
+        }
+        return false
+    }
+    
     func test_downloadAsset_asset_shouldDownloadAssetAsData() {
         
         XCTAssertNotNil(cloudinary!.config.apiSecret, "Must set api secret for this test")

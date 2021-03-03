@@ -52,6 +52,7 @@ internal class CLDNetworkDownloadRequest: CLDNetworkDataRequestImpl<CLDNDataRequ
     @discardableResult
     internal func responseData(_ completionHandler: ((_ responseData: Data?, _ error: NSError?) -> ())?) -> CLDNetworkDataRequest {
         request.responseData { response in
+            //TODO OZ
             if let downloadedData = response.result.value {
                 completionHandler?(downloadedData, nil)
             }
