@@ -35,6 +35,7 @@ internal struct CLDError {
         case failedRetrievingFileInfo               = -7003
         case preprocessingError                     = -7004
         case failedDownloadingAsset                 = -7005
+        case unacceptableStatusCode                 = -7006
     }
     
     static func generalError() -> NSError {

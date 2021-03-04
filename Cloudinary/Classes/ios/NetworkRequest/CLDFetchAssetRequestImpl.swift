@@ -63,7 +63,12 @@ internal class CLDFetchAssetRequestImpl: CLDFetchAssetRequest {
         dataDownloadRequest?.progress(progress)
         
         dataDownloadRequest?.responseData { [weak self] (responseData, responseError) -> () in
-            if let data = responseData {
+            if let data = responseData,
+               let err = responseError {
+                self?.data  = data
+                self?.error = err
+            }
+            else if let data = responseData {
                 self?.data = data
             }
             else if let err = responseError {
@@ -81,7 +86,12 @@ internal class CLDFetchAssetRequestImpl: CLDFetchAssetRequest {
     @discardableResult
     @objc func responseAsset(_ completionHandler: CLDAssetCompletionHandler?) -> CLDFetchAssetRequest {
         closureQueue.addOperation {
-            if let data = self.data {
+            
+            if let data = self.data,
+               let error = self.error {
+                completionHandler?(data, error)
+            }
+            else if let data = self.data {
                 completionHandler?(data, nil)
             }
             else if let error = self.error {
